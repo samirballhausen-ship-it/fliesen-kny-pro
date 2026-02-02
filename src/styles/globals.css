@@ -6,40 +6,72 @@
   html {
     scroll-behavior: smooth;
   }
-  
+
   body {
-    @apply antialiased text-gray-800;
+    @apply antialiased bg-stone-50 text-stone-800;
     font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
   }
-  
+
   h1, h2, h3, h4, h5, h6 {
-    @apply font-display font-semibold tracking-tight;
+    @apply font-display font-medium text-stone-900;
+  }
+
+  /* Elegant link transitions */
+  a {
+    @apply transition-colors duration-300;
   }
 }
 
 @layer components {
+  /* Primary button - dark, elegant */
   .btn-primary {
-    @apply inline-flex items-center justify-center px-6 py-3 text-base font-medium text-white bg-primary-600 border border-transparent rounded-lg shadow-sm hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 transition-all duration-200;
+    @apply inline-flex items-center justify-center px-8 py-4 text-sm font-medium tracking-wide uppercase text-stone-50 bg-stone-900 hover:bg-stone-800 transition-all duration-300;
   }
-  
-  .btn-secondary {
-    @apply inline-flex items-center justify-center px-6 py-3 text-base font-medium text-primary-700 bg-primary-50 border border-primary-200 rounded-lg shadow-sm hover:bg-primary-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 transition-all duration-200;
+
+  /* Outline button - minimal */
+  .btn-outline {
+    @apply inline-flex items-center justify-center px-8 py-4 text-sm font-medium tracking-wide uppercase text-stone-900 border border-stone-900 hover:bg-stone-900 hover:text-stone-50 transition-all duration-300;
   }
-  
+
+  /* Text link with underline animation */
+  .link-underline {
+    @apply relative inline-block text-stone-900 after:absolute after:bottom-0 after:left-0 after:w-0 after:h-px after:bg-stone-900 after:transition-all after:duration-300 hover:after:w-full;
+  }
+
+  /* Section spacing */
   .section-padding {
-    @apply py-16 md:py-24 lg:py-32;
+    @apply py-20 md:py-28 lg:py-36;
   }
-  
+
+  .section-padding-sm {
+    @apply py-12 md:py-16 lg:py-20;
+  }
+
+  /* Container */
   .container-custom {
-    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+    @apply max-w-7xl mx-auto px-6 lg:px-8;
   }
-  
-  .glass-card {
-    @apply bg-white/80 backdrop-blur-lg border border-white/20 shadow-xl rounded-2xl;
+
+  .container-narrow {
+    @apply max-w-4xl mx-auto px-6 lg:px-8;
   }
-  
-  .gradient-text {
-    @apply bg-gradient-to-r from-primary-600 to-secondary-500 bg-clip-text text-transparent;
+
+  /* Divider */
+  .divider {
+    @apply w-16 h-px bg-stone-300;
+  }
+
+  /* Image container with aspect ratio */
+  .image-container {
+    @apply relative overflow-hidden bg-stone-100;
+  }
+
+  .image-container img {
+    @apply w-full h-full object-cover transition-transform duration-700;
+  }
+
+  .image-container:hover img {
+    @apply scale-105;
   }
 }
 
@@ -47,28 +79,32 @@
   .text-balance {
     text-wrap: balance;
   }
+
+  /* Elegant letter spacing */
+  .tracking-elegant {
+    letter-spacing: 0.15em;
+  }
 }
 
-/* Custom scrollbar */
+/* Minimal scrollbar */
 ::-webkit-scrollbar {
-  width: 10px;
+  width: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #f1f1f1;
+  background: #F5F5F4;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #c1c1c1;
-  border-radius: 5px;
+  background: #D6D3D1;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #a1a1a1;
+  background: #A8A29E;
 }
 
 /* Selection */
 ::selection {
-  background: #0c88f5;
-  color: white;
+  background: #292524;
+  color: #FAFAF9;
 }
