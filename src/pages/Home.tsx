@@ -1,243 +1,332 @@
 import { useRef } from 'react'
 import { motion, useScroll, useTransform } from 'framer-motion'
 import { Link } from 'react-router-dom'
-import { ArrowRight, Award, Sparkles, Ruler, ShieldCheck, ArrowUpRight } from 'lucide-react'
+import {
+  ArrowRight,
+  ChevronDown,
+  MessageCircle,
+  Shield,
+  Layers,
+  Headphones,
+  Phone
+} from 'lucide-react'
 
-const fadeInUp = {
-  initial: { opacity: 0, y: 40 },
-  animate: { opacity: 1, y: 0 },
-  transition: { duration: 0.9, ease: [0.22, 1, 0.36, 1] }
-}
-
-const highlights = [
+// USP Data
+const usps = [
   {
-    title: 'Premium-Auswahl',
-    description: 'Kuratierte Kollektionen internationaler Marken mit exklusiven Serien.',
-    icon: Sparkles
+    icon: MessageCircle,
+    title: 'Persoenliche Beratung',
+    description: 'Individuelle Fachberatung durch unsere Experten fuer Ihr Projekt.',
   },
   {
-    title: 'Planung & Umsetzung',
-    description: 'Beratung, Materialkonzept und Detailplanung aus einer Hand.',
-    icon: Ruler
+    icon: Shield,
+    title: 'Premium Qualitaet',
+    description: 'Nur ausgewaehlte Markenhersteller und hochwertige Materialien.',
   },
   {
-    title: 'Qualität seit 1982',
-    description: 'Familiengeführt, mit über 40 Jahren Erfahrung im Rhein-Main-Gebiet.',
-    icon: Award
+    icon: Layers,
+    title: 'Groesste Auswahl',
+    description: 'Ueber 100 Marken und unzaehlige Designs in unserer Ausstellung.',
   },
   {
-    title: 'Verlässliche Partner',
-    description: 'Koordination mit Architekten, Handwerk und Bauleitung.',
-    icon: ShieldCheck
-  }
+    icon: Headphones,
+    title: 'Rundum Service',
+    description: 'Von der Planung bis zur Lieferung - alles aus einer Hand.',
+  },
 ]
 
-const services = [
+// Sortiment Categories
+const sortiment = [
   {
-    title: 'Exklusive Fliesen',
-    description: 'Großformate, Natursteinoptik und handveredelte Serien für Wand und Boden.',
-    image: '/images/service-showroom.jpg',
-    link: '/ausstellung'
+    title: 'Fliesen',
+    description: 'Von klassisch elegant bis modern minimalistisch - Fliesen fuer jeden Stil und Raum.',
+    image: 'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?w=800&q=80',
+    link: '/ausstellung',
   },
   {
-    title: 'Sanitär & Bad',
-    description: 'Design-Armaturen, Waschtische und komplette Badkonzepte aus einer Hand.',
-    image: '/images/hero-luxury-bathroom.jpg',
-    link: '/ausstellung'
+    title: 'Bad & Sanitaer',
+    description: 'Design-Armaturen, Waschtische und komplette Badkonzepte namhafter Hersteller.',
+    image: 'https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=800&q=80',
+    link: '/ausstellung',
   },
   {
-    title: 'Mosaik & Details',
-    description: 'Individuelle Akzente, Manufakturarbeiten und Sonderanfertigungen.',
-    image: '/images/service-mosaic-art.jpg',
-    link: '/ausstellung'
-  }
-]
-
-const projectGallery = [
-  {
-    title: 'Penthouse Frankfurt',
-    category: 'Bad & Wellness',
-    image: '/images/gallery-luxury-bathroom.jpg'
+    title: 'Naturstein',
+    description: 'Edle Natursteine fuer zeitlose Eleganz - Marmor, Granit und mehr.',
+    image: 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&q=80',
+    link: '/ausstellung',
   },
-  {
-    title: 'Villa Taunus',
-    category: 'Living & Kitchen',
-    image: '/images/gallery-modern-kitchen.jpg'
-  },
-  {
-    title: 'Outdoor Lounge',
-    category: 'Terrasse',
-    image: '/images/gallery-outdoor-terrace.jpg'
-  }
 ]
 
 export const Home = () => {
-  const containerRef = useRef(null)
+  const heroRef = useRef(null)
   const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start start", "end start"]
+    target: heroRef,
+    offset: ['start start', 'end start'],
   })
 
-  const y = useTransform(scrollYProgress, [0, 1], ["0%", "50%"])
-  const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0])
+  const heroY = useTransform(scrollYProgress, [0, 1], ['0%', '30%'])
+  const heroOpacity = useTransform(scrollYProgress, [0, 0.5], [1, 0])
 
   return (
-    <div className="bg-stone-50" ref={containerRef}>
-      {/* Hero Section - Full Screen with Parallax */}
-      <section className="relative h-screen overflow-hidden flex items-center justify-center">
-        <motion.div style={{ y, opacity }} className="absolute inset-0 z-0">
+    <div className="bg-white">
+      {/* ============================================
+          HERO SECTION - 100vh Immersive
+          ============================================ */}
+      <section ref={heroRef} className="relative h-screen overflow-hidden flex items-center justify-center">
+        {/* Background Image with Parallax */}
+        <motion.div style={{ y: heroY }} className="absolute inset-0 z-0">
           <img
-            src="/images/hero-luxury-bathroom.jpg"
-            alt="Luxuriöses Badezimmer"
-            className="w-full h-full object-cover scale-105"
+            src="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=1920&q=80"
+            alt="Luxurioeses Badezimmer mit eleganten Fliesen"
+            className="w-full h-full object-cover scale-110"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-stone-950/70 via-stone-900/50 to-stone-950/60" />
+          {/* Gradient Overlay for Readability */}
+          <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/30 to-black/60" />
+          <div className="absolute inset-0 bg-gradient-to-r from-black/40 via-transparent to-transparent" />
         </motion.div>
 
-        <div className="relative z-10 container-custom w-full">
-          <div className="max-w-4xl mx-auto text-center">
+        {/* Hero Content */}
+        <motion.div style={{ opacity: heroOpacity }} className="relative z-10 container mx-auto px-6 lg:px-8">
+          <div className="max-w-3xl">
+            {/* Tagline */}
             <motion.div
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1, delay: 0.2 }}
-              className="inline-block mb-6 px-4 py-2 border border-white/20 backdrop-blur-sm bg-white/5"
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="mb-6"
             >
-              <span className="text-xs md:text-sm uppercase tracking-[0.3em] text-stone-200">
-                Premium Showroom Rhein-Main
+              <span className="inline-block px-5 py-2.5 border border-white/30 text-white/90 text-xs uppercase tracking-[0.2em] backdrop-blur-sm bg-white/5">
+                Der Geheimtipp im Rhein-Main-Gebiet
               </span>
             </motion.div>
 
+            {/* Main Headline */}
             <motion.h1
-              initial={{ opacity: 0, y: 50 }}
+              initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1, delay: 0.3 }}
-              className="font-display text-5xl md:text-7xl lg:text-[5.5rem] text-white mb-8 leading-[1.1]"
+              transition={{ duration: 0.8, delay: 0.3 }}
+              className="font-display text-5xl md:text-6xl lg:text-7xl text-white mb-6 leading-tight"
             >
-              Raumkultur <br className="hidden md:block" />
-              <span className="text-stone-300 italic">neu definiert.</span>
+              Gestalten Sie mit uns
+              <br />
+              <span className="text-white/80 italic">Ihr Zuhause.</span>
             </motion.h1>
 
+            {/* Subline */}
             <motion.p
-              initial={{ opacity: 0, y: 40 }}
+              initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1, delay: 0.4 }}
-              className="text-lg md:text-xl text-stone-200 mb-12 max-w-2xl mx-auto leading-relaxed font-light"
+              transition={{ duration: 0.8, delay: 0.4 }}
+              className="text-lg md:text-xl text-white/80 mb-10 max-w-xl leading-relaxed"
             >
-              Wir gestalten Räume mit Charakter. Entdecken Sie exklusive Fliesen,
-              Naturstein und Sanitär in einer der führenden Ausstellungen der Region.
+              Entdecken Sie eine der groessten Ausstellungen fuer exklusive Fliesen,
+              edle Sanitaerobjekte und hochwertige Natursteine im Rhein-Main-Gebiet.
             </motion.p>
 
+            {/* Dual CTA Buttons */}
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1, delay: 0.5 }}
-              className="flex flex-col sm:flex-row gap-6 justify-center"
+              transition={{ duration: 0.8, delay: 0.5 }}
+              className="flex flex-col sm:flex-row gap-4"
             >
-              <Link to="/ausstellung" className="btn-primary min-w-[200px]">
-                Kollektion ansehen
-              </Link>
               <Link
                 to="/kontakt"
-                className="btn-outline border-white text-white hover:bg-white hover:text-stone-900 min-w-[200px]"
+                className="inline-flex items-center justify-center px-8 py-4 bg-primary hover:bg-primary-dark text-white font-medium transition-all duration-300 shadow-lg hover:shadow-primary-lg group"
               >
-                Beratungstermin
+                Termin vereinbaren
+                <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
+              </Link>
+              <Link
+                to="/ausstellung"
+                className="inline-flex items-center justify-center px-8 py-4 border-2 border-white/70 text-white hover:bg-white hover:text-neutral-text font-medium transition-all duration-300 backdrop-blur-sm"
+              >
+                Ausstellung entdecken
               </Link>
             </motion.div>
           </div>
-        </div>
+        </motion.div>
 
         {/* Scroll Indicator */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1.5, duration: 1 }}
-          className="absolute bottom-12 left-1/2 -translate-x-1/2 text-white/50 flex flex-col items-center gap-2"
+          className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-white/60"
         >
-          <span className="text-[10px] uppercase tracking-[0.2em]">Scroll</span>
-          <div className="w-[1px] h-12 bg-gradient-to-b from-white/0 via-white/50 to-white/0" />
+          <span className="text-xs uppercase tracking-[0.2em]">Mehr entdecken</span>
+          <motion.div
+            animate={{ y: [0, 8, 0] }}
+            transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
+          >
+            <ChevronDown className="w-6 h-6" />
+          </motion.div>
         </motion.div>
       </section>
 
-      {/* Highlights - Floating Grid */}
-      <section className="relative z-20 -mt-24 pb-20 lg:pb-32 px-4">
-        <div className="container-custom">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {highlights.map((item, index) => (
+      {/* ============================================
+          INTRO SECTION - Warm Beige Background
+          ============================================ */}
+      <section className="py-24 lg:py-32 bg-neutral-beige">
+        <div className="container mx-auto px-6 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+            className="max-w-4xl mx-auto text-center"
+          >
+            {/* Overline */}
+            <span className="text-xs uppercase tracking-[0.25em] text-primary font-medium mb-6 block">
+              Seit ueber 40 Jahren
+            </span>
+
+            {/* Headline */}
+            <h2 className="font-display text-4xl md:text-5xl lg:text-6xl text-neutral-text mb-8 leading-tight">
+              Ihr Partner fuer
+              <br />
+              <span className="text-neutral-muted italic">exklusive Raumgestaltung.</span>
+            </h2>
+
+            {/* Description */}
+            <p className="text-lg md:text-xl text-neutral-muted leading-relaxed mb-12 max-w-3xl mx-auto">
+              Fliesen Kny steht fuer kompetente Beratung, erstklassige Qualitaet und ein
+              einzigartiges Sortiment. Als Familienbetrieb begleiten wir Sie persoenlich
+              von der ersten Idee bis zur perfekten Umsetzung Ihres Projekts.
+            </p>
+
+            {/* Stats Inline */}
+            <div className="flex flex-wrap justify-center gap-8 md:gap-16">
+              <div className="text-center">
+                <div className="font-display text-4xl md:text-5xl text-primary mb-2">40+</div>
+                <div className="text-sm uppercase tracking-[0.15em] text-neutral-muted">Jahre Erfahrung</div>
+              </div>
+              <div className="text-center">
+                <div className="font-display text-4xl md:text-5xl text-primary mb-2">1000m²</div>
+                <div className="text-sm uppercase tracking-[0.15em] text-neutral-muted">Ausstellung</div>
+              </div>
+              <div className="text-center">
+                <div className="font-display text-4xl md:text-5xl text-primary mb-2">100+</div>
+                <div className="text-sm uppercase tracking-[0.15em] text-neutral-muted">Marken</div>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* ============================================
+          SORTIMENT TEASER - 3 Premium Cards
+          ============================================ */}
+      <section className="py-24 lg:py-32 bg-white">
+        <div className="container mx-auto px-6 lg:px-8">
+          {/* Section Header */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="text-center mb-16"
+          >
+            <span className="text-xs uppercase tracking-[0.25em] text-primary font-medium mb-4 block">
+              Unser Sortiment
+            </span>
+            <h2 className="font-display text-4xl md:text-5xl text-neutral-text">
+              Entdecken Sie unsere Welten
+            </h2>
+          </motion.div>
+
+          {/* Cards Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {sortiment.map((item, index) => (
               <motion.div
                 key={item.title}
-                initial={{ opacity: 0, y: 30 }}
+                initial={{ opacity: 0, y: 40 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.8, delay: index * 0.1 }}
-                className="bg-white p-8 shadow-xl shadow-stone-200/20 hover:-translate-y-2 transition-transform duration-500 ease-out border-b-2 border-transparent hover:border-warm-500 group"
+                transition={{ duration: 0.6, delay: index * 0.15 }}
               >
-                <div className="mb-6 inline-flex p-3 bg-stone-50 text-stone-900 rounded-none group-hover:bg-stone-900 group-hover:text-white transition-colors duration-300">
-                  <item.icon className="w-6 h-6" />
-                </div>
-                <h3 className="font-display text-xl text-stone-900 mb-3">{item.title}</h3>
-                <p className="text-sm text-stone-500 leading-relaxed">{item.description}</p>
+                <Link to={item.link} className="group block">
+                  {/* Image Container */}
+                  <div className="relative overflow-hidden aspect-[3/4] mb-6">
+                    <img
+                      src={item.image}
+                      alt={item.title}
+                      className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
+                    />
+                    {/* Hover Overlay */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-500" />
+
+                    {/* Arrow Icon on Hover */}
+                    <div className="absolute bottom-6 right-6">
+                      <div className="w-12 h-12 bg-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-4 group-hover:translate-y-0 shadow-lg">
+                        <ArrowRight className="w-5 h-5 text-neutral-text" />
+                      </div>
+                    </div>
+
+                    {/* Title Overlay */}
+                    <div className="absolute bottom-6 left-6">
+                      <h3 className="font-display text-2xl md:text-3xl text-white">
+                        {item.title}
+                      </h3>
+                    </div>
+                  </div>
+
+                  {/* Description */}
+                  <p className="text-neutral-muted leading-relaxed group-hover:text-neutral-text transition-colors duration-300">
+                    {item.description}
+                  </p>
+                </Link>
               </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Intro Text */}
-      <section className="section-padding overflow-hidden">
-        <div className="container-narrow text-center">
+      {/* ============================================
+          USP SECTION - Clean White Grid
+          ============================================ */}
+      <section className="py-24 lg:py-32 bg-neutral-cream">
+        <div className="container mx-auto px-6 lg:px-8">
+          {/* Section Header */}
           <motion.div
-            initial={{ opacity: 0, y: 40 }}
+            initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
+            transition={{ duration: 0.6 }}
+            className="text-center mb-16"
           >
-            <span className="text-xs uppercase tracking-[0.3em] text-warm-600 mb-6 block font-medium">
-              Seit 1982
+            <span className="text-xs uppercase tracking-[0.25em] text-primary font-medium mb-4 block">
+              Warum Fliesen Kny
             </span>
-            <h2 className="font-display text-4xl md:text-5xl lg:text-6xl text-stone-900 mb-8 leading-tight">
-              Beratung, Auswahl und Gestaltung <br />
-              <span className="text-stone-400 italic">mit höchstem Anspruch.</span>
+            <h2 className="font-display text-4xl md:text-5xl text-neutral-text">
+              Was uns auszeichnet
             </h2>
-            <p className="text-lg md:text-xl text-stone-600 leading-relaxed font-light">
-              Ob private Wohnräume oder anspruchsvolle Gewerbeprojekte – wir kuratieren
-              Materialien, die Architektur und Interior verbinden. Unsere Experten begleiten
-              Sie von der ersten Skizze bis zur finalen Ausführung.
-            </p>
           </motion.div>
-        </div>
-      </section>
 
-      {/* Services Grid */}
-      <section className="section-padding bg-stone-100/50">
-        <div className="container-custom">
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            {services.map((service, index) => (
+          {/* USP Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {usps.map((usp, index) => (
               <motion.div
-                key={service.title}
-                initial={{ opacity: 0, y: 40 }}
+                key={usp.title}
+                initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.8, delay: index * 0.2 }}
-                className="group cursor-pointer"
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                className="text-center group"
               >
-                <div className="relative overflow-hidden aspect-[4/5] mb-6">
-                  <div className="absolute inset-0 bg-stone-900/10 group-hover:bg-stone-900/0 transition-colors duration-500 z-10" />
-                  <img
-                    src={service.image}
-                    alt={service.title}
-                    className="w-full h-full object-cover transition-transform duration-1000 ease-out group-hover:scale-105"
-                  />
-                  <div className="absolute bottom-0 left-0 right-0 p-8 z-20 translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
-                    <div className="w-12 h-12 bg-white flex items-center justify-center text-stone-900 mb-4 opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">
-                      <ArrowRight className="w-5 h-5" />
-                    </div>
-                  </div>
+                {/* Icon */}
+                <div className="inline-flex items-center justify-center w-16 h-16 bg-white border border-neutral-border mb-6 group-hover:bg-primary group-hover:border-primary transition-all duration-300 shadow-soft">
+                  <usp.icon className="w-7 h-7 text-primary group-hover:text-white transition-colors duration-300" />
                 </div>
-                <h3 className="font-display text-3xl text-stone-900 mb-3 group-hover:text-warm-700 transition-colors">
-                  {service.title}
+
+                {/* Title */}
+                <h3 className="font-display text-xl text-neutral-text mb-3">
+                  {usp.title}
                 </h3>
-                <p className="text-stone-500 leading-relaxed max-w-sm">
-                  {service.description}
+
+                {/* Description */}
+                <p className="text-neutral-muted text-sm leading-relaxed">
+                  {usp.description}
                 </p>
               </motion.div>
             ))}
@@ -245,142 +334,108 @@ export const Home = () => {
         </div>
       </section>
 
-      {/* Project Banner */}
-      <section className="py-32 relative overflow-hidden bg-stone-900 text-white">
-        <div className="absolute inset-0 opacity-20">
-          <img
-            src="/images/gallery-modern-kitchen.jpg"
-            alt="Background"
-            className="w-full h-full object-cover grayscale"
-          />
-        </div>
-        <div className="container-custom relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+      {/* ============================================
+          AUSSTELLUNG TEASER - Large Image + Text
+          ============================================ */}
+      <section className="py-24 lg:py-32 bg-white">
+        <div className="container mx-auto px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+            {/* Image */}
             <motion.div
-              initial={{ opacity: 0, x: -50 }}
+              initial={{ opacity: 0, x: -40 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8 }}
+              className="relative"
             >
-              <h2 className="font-display text-5xl md:text-6xl mb-6">
-                Ihr Projekt <br />
-                <span className="text-stone-400 italic">in guten Händen.</span>
-              </h2>
-              <p className="text-xl text-stone-300 font-light max-w-lg mb-8">
-                Von der Materialauswahl bis zur logistischen Koordination – wir sorgen für
-                einen reibungslosen Ablauf und Ergebnisse, die begeistern.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-8 text-stone-300">
-                <div>
-                  <div className="font-display text-4xl text-white mb-2">40+</div>
-                  <div className="text-xs uppercase tracking-[0.2em] opacity-60">Jahre Erfahrung</div>
-                </div>
-                <div>
-                  <div className="font-display text-4xl text-white mb-2">1000m²</div>
-                  <div className="text-xs uppercase tracking-[0.2em] opacity-60">Showroom</div>
-                </div>
+              <div className="aspect-[4/3] overflow-hidden">
+                <img
+                  src="https://images.unsplash.com/photo-1600607687644-c7171b42498f?w=1200&q=80"
+                  alt="Fliesen Kny Ausstellung Showroom"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              {/* Accent Box */}
+              <div className="absolute -bottom-6 -right-6 bg-primary text-white p-6 hidden lg:block">
+                <div className="font-display text-4xl">1000m²</div>
+                <div className="text-sm uppercase tracking-wider text-white/80">Ausstellung</div>
               </div>
             </motion.div>
 
+            {/* Content */}
             <motion.div
-              initial={{ opacity: 0, x: 50 }}
+              initial={{ opacity: 0, x: 40 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.8 }}
-              className="bg-white/5 backdrop-blur-md p-8 md:p-12 border border-white/10"
+              transition={{ duration: 0.8, delay: 0.2 }}
             >
-              <h3 className="font-display text-2xl mb-6">Unser Prozess</h3>
-              <ul className="space-y-6">
-                {[
-                  'Erstgespräch & Bedarfsanalyse',
-                  'Materialauswahl & Moodboard',
-                  'Entwurfsplanung & Visualisierung',
-                  'Koordination & Lieferung'
-                ].map((step, i) => (
-                  <li key={i} className="flex items-center gap-4 text-stone-300">
-                    <span className="w-8 h-8 flex items-center justify-center border border-white/20 text-xs rounded-full">
-                      {i + 1}
-                    </span>
-                    <span>{step}</span>
-                  </li>
-                ))}
-              </ul>
+              <span className="text-xs uppercase tracking-[0.25em] text-primary font-medium mb-4 block">
+                Unsere Ausstellung
+              </span>
+              <h2 className="font-display text-4xl md:text-5xl text-neutral-text mb-6 leading-tight">
+                1000m² Inspiration
+                <br />
+                <span className="text-neutral-muted italic">fuer Ihr Zuhause.</span>
+              </h2>
+              <p className="text-lg text-neutral-muted leading-relaxed mb-8">
+                Besuchen Sie eine der groessten Fliesenausstellungen im Rhein-Main-Gebiet.
+                Erleben Sie ueber 100 Marken live, lassen Sie sich von aktuellen Trends
+                inspirieren und finden Sie genau das Richtige fuer Ihr Projekt.
+              </p>
+              <Link
+                to="/ausstellung"
+                className="inline-flex items-center justify-center px-8 py-4 bg-primary hover:bg-primary-dark text-white font-medium transition-all duration-300 shadow-lg hover:shadow-primary-lg group"
+              >
+                Ausstellung besuchen
+                <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
+              </Link>
             </motion.div>
           </div>
         </div>
       </section>
 
-      {/* Selected Work */}
-      <section className="section-padding">
-        <div className="container-custom">
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
-            <div>
-              <span className="text-xs uppercase tracking-[0.3em] text-warm-600 mb-4 block">Portfolio</span>
-              <h2 className="font-display text-4xl md:text-5xl text-stone-900">Ausgewählte Projekte</h2>
-            </div>
-            <Link
-              to="/ausstellung"
-              className="inline-flex items-center text-sm uppercase tracking-[0.2em] text-stone-900 hover:text-warm-600 transition-colors"
-            >
-              Alle Projekte <ArrowRight className="ml-2 w-4 h-4" />
-            </Link>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-8">
-            {projectGallery.map((project, index) => (
-              <motion.div
-                key={project.title}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.8, delay: index * 0.2 }}
-                className="group relative cursor-pointer"
-              >
-                <div className="aspect-[3/4] overflow-hidden grayscale group-hover:grayscale-0 transition-all duration-700">
-                  <img
-                    src={project.image}
-                    alt={project.title}
-                    className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
-                  />
-                </div>
-                <div className="absolute inset-0 bg-gradient-to-t from-stone-900/90 via-transparent to-transparent opacity-60 group-hover:opacity-40 transition-opacity duration-500" />
-                <div className="absolute bottom-0 left-0 p-8 w-full group-hover:translate-x-2 transition-transform duration-500">
-                  <p className="text-xs uppercase tracking-[0.2em] text-warm-200 mb-2">{project.category}</p>
-                  <h3 className="font-display text-2xl text-white flex items-center justify-between">
-                    {project.title}
-                    <ArrowUpRight className="w-5 h-5 opacity-0 group-hover:opacity-100 transition-opacity -translate-y-2 group-hover:translate-y-0 duration-500" />
-                  </h3>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="section-padding bg-warm-50/50">
-        <div className="container-narrow text-center">
+      {/* ============================================
+          FINAL CTA SECTION - Dark Background
+          ============================================ */}
+      <section className="py-24 lg:py-32 bg-neutral-text">
+        <div className="container mx-auto px-6 lg:px-8">
           <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            whileInView={{ opacity: 1, scale: 1 }}
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
+            className="max-w-3xl mx-auto text-center"
           >
-            <h2 className="font-display text-4xl md:text-5xl lg:text-6xl text-stone-900 mb-8">
-              Starten Sie Ihr Projekt.
+            <h2 className="font-display text-4xl md:text-5xl text-white mb-6">
+              Lassen Sie sich beraten.
             </h2>
-            <p className="text-lg text-stone-600 mb-10 max-w-xl mx-auto font-light">
-              Vereinbaren Sie einen kostenlosen Beratungstermin in unserem Showroom und
-              lassen Sie sich von unseren Experten inspirieren.
+            <p className="text-lg text-white/70 leading-relaxed mb-10 max-w-2xl mx-auto">
+              Vereinbaren Sie einen persoenlichen Beratungstermin und lassen Sie sich
+              von unseren Experten Ihr Traumprojekt planen.
             </p>
-            <div className="flex flex-col sm:flex-row justify-center gap-6">
-              <Link to="/kontakt" className="btn-primary shadow-xl shadow-warm-900/10">
+
+            {/* CTA Buttons */}
+            <div className="flex flex-col sm:flex-row justify-center gap-4 mb-8">
+              <Link
+                to="/kontakt"
+                className="inline-flex items-center justify-center px-8 py-4 bg-primary hover:bg-primary-light text-white font-medium transition-all duration-300 shadow-lg hover:shadow-primary-lg group"
+              >
                 Termin vereinbaren
+                <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </Link>
-              <a href="tel:0610533067" className="btn-outline">
-                06105 – 330 67
+              <a
+                href="tel:0610533067"
+                className="inline-flex items-center justify-center px-8 py-4 border-2 border-white/30 text-white hover:bg-white/10 font-medium transition-all duration-300"
+              >
+                <Phone className="mr-2 w-5 h-5" />
+                06105 - 330 67
               </a>
             </div>
+
+            {/* Additional Info */}
+            <p className="text-white/50 text-sm">
+              Mo - Fr: 9:00 - 18:00 Uhr | Sa: 9:00 - 14:00 Uhr
+            </p>
           </motion.div>
         </div>
       </section>

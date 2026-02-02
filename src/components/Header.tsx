@@ -1,10 +1,18 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { Link, useLocation } from 'react-router-dom'
-import { Menu, X } from 'lucide-react'
+import { Menu, X, Phone, ChevronDown, Calendar } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
+import { Logo } from './Logo'
+
+// Navigation mit Sortiment-Dropdown
+const sortimentItems = [
+  { name: 'Fliesen', href: '/fliesen' },
+  { name: 'Bad & Sanitär', href: '/sanitaer' },
+  { name: 'Naturstein', href: '/naturstein' },
+]
 
 const navigation = [
-  { name: 'Startseite', href: '/' },
+  { name: 'Sortiment', href: '#', hasDropdown: true, children: sortimentItems },
   { name: 'Ausstellung', href: '/ausstellung' },
   { name: 'Über uns', href: '/ueber-uns' },
   { name: 'Kontakt', href: '/kontakt' },
@@ -13,8 +21,12 @@ const navigation = [
 export const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const [activeDropdown, setActiveDropdown] = useState<string | null>(null)
+  const [mobileDropdownOpen, setMobileDropdownOpen] = useState(false)
+  const dropdownRef = useRef<HTMLDivElement>(null)
   const location = useLocation()
 
+  // Scroll-Handler
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20)
@@ -23,135 +35,315 @@ export const Header = () => {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
+  // Close menus on route change
   useEffect(() => {
     setIsMobileMenuOpen(false)
+    setActiveDropdown(null)
+    setMobileDropdownOpen(false)
   }, [location])
 
-  // Determine if we're on the home page for transparent header logic
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setActiveDropdown(null)
+      }
+    }
+    document.addEventListener('mousedown', handleClickOutside)
+    return () => document.removeEventListener('mousedown', handleClickOutside)
+  }, [])
+
   const isHomePage = location.pathname === '/'
+  const showDarkHeader = isScrolled || !isHomePage
 
-  // Header background state
-  const headerClasses = isScrolled || !isHomePage
-    ? 'bg-white/80 backdrop-blur-xl border-b border-stone-200/50 shadow-sm'
-    : 'bg-transparent border-b border-transparent'
-
-  // Text color state
-  const textColor = isScrolled || !isHomePage ? 'text-stone-900' : 'text-white'
-
-  // Button style state
-  const buttonClass = isScrolled || !isHomePage
-    ? 'border-stone-900 text-stone-900 hover:bg-stone-900 hover:text-white'
-    : 'border-white text-white hover:bg-white hover:text-stone-900'
+  // Check if current path is in sortiment
+  const isSortimentActive = ['/fliesen', '/sanitaer', '/naturstein'].includes(location.pathname)
 
   return (
-    <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ease-in-out ${headerClasses}`}>
+    <header
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+        showDarkHeader
+          ? 'bg-white/98 backdrop-blur-md shadow-lg shadow-black/5'
+          : 'bg-gradient-to-b from-black/30 to-transparent'
+      }`}
+    >
       <div className="container-custom">
         <div className="flex items-center justify-between h-20 lg:h-24">
           {/* Logo */}
           <Link to="/" className="relative z-10 group">
-            <div className={`font-display text-2xl lg:text-3xl tracking-wide ${textColor} transition-colors duration-300`}>
-              <span className="font-medium group-hover:opacity-80 transition-opacity">Fliesen</span>
-              <span className="font-bold ml-2">KNY</span>
-            </div>
+            <Logo
+              className="h-12 lg:h-14 w-auto transition-transform duration-300 group-hover:scale-105"
+              variant={showDarkHeader ? 'dark' : 'light'}
+              showTagline={false}
+            />
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center space-x-12">
+          <nav className="hidden lg:flex items-center space-x-8 xl:space-x-12" ref={dropdownRef}>
             {navigation.map((item) => (
-              <Link
+              <div
                 key={item.name}
-                to={item.href}
-                className={`text-xs tracking-[0.2em] uppercase transition-all duration-300 relative py-2 
-                  ${textColor} 
-                  ${location.pathname === item.href ? 'font-semibold opacity-100' : 'opacity-80 hover:opacity-100'}
-                  after:content-[''] after:absolute after:left-0 after:bottom-0 after:h-[1px] after:bg-current 
-                  after:transition-all after:duration-300 
-                  ${location.pathname === item.href ? 'after:w-full' : 'after:w-0 hover:after:w-full'}
-                `}
+                className="relative"
+                onMouseEnter={() => item.hasDropdown && setActiveDropdown(item.name)}
+                onMouseLeave={() => setActiveDropdown(null)}
               >
-                {item.name}
-              </Link>
+                {item.hasDropdown ? (
+                  <>
+                    <button
+                      className={`flex items-center gap-1.5 text-sm uppercase tracking-[0.12em] font-medium transition-all duration-300 py-2
+                        ${showDarkHeader ? 'text-neutral-600 hover:text-neutral-900' : 'text-white/90 hover:text-white'}
+                        ${isSortimentActive ? 'font-semibold' : ''}
+                      `}
+                      onClick={() => setActiveDropdown(activeDropdown === item.name ? null : item.name)}
+                    >
+                      {item.name}
+                      <ChevronDown
+                        size={16}
+                        className={`transition-transform duration-300 ${activeDropdown === item.name ? 'rotate-180' : ''}`}
+                      />
+                    </button>
+
+                    {/* Dropdown Menu */}
+                    <AnimatePresence>
+                      {activeDropdown === item.name && (
+                        <motion.div
+                          initial={{ opacity: 0, y: 8, scale: 0.96 }}
+                          animate={{ opacity: 1, y: 0, scale: 1 }}
+                          exit={{ opacity: 0, y: 8, scale: 0.96 }}
+                          transition={{ duration: 0.2, ease: 'easeOut' }}
+                          className="absolute top-full left-1/2 -translate-x-1/2 pt-4"
+                        >
+                          <div className="bg-white rounded-lg shadow-2xl shadow-black/10 border border-neutral-100 overflow-hidden min-w-[220px]">
+                            <div className="py-2">
+                              {item.children?.map((child, index) => (
+                                <Link
+                                  key={child.name}
+                                  to={child.href}
+                                  className={`block px-6 py-3.5 text-sm text-neutral-600 hover:text-primary hover:bg-neutral-50 transition-all duration-200 relative group/item
+                                    ${location.pathname === child.href ? 'text-primary bg-primary/5 font-medium' : ''}
+                                  `}
+                                >
+                                  <span className="relative z-10">{child.name}</span>
+                                  <motion.div
+                                    className="absolute left-0 top-0 bottom-0 w-1 bg-primary"
+                                    initial={{ scaleY: 0 }}
+                                    whileHover={{ scaleY: 1 }}
+                                    transition={{ duration: 0.2 }}
+                                  />
+                                </Link>
+                              ))}
+                            </div>
+                            {/* Dropdown Footer */}
+                            <div className="border-t border-neutral-100 px-6 py-4 bg-neutral-50/50">
+                              <Link
+                                to="/ausstellung"
+                                className="text-xs uppercase tracking-wider text-neutral-500 hover:text-primary transition-colors flex items-center gap-2"
+                              >
+                                <span className="w-4 h-px bg-current" />
+                                Alle in unserer Ausstellung
+                              </Link>
+                            </div>
+                          </div>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </>
+                ) : (
+                  <Link
+                    to={item.href}
+                    className={`relative text-sm uppercase tracking-[0.12em] font-medium transition-all duration-300 py-2
+                      ${showDarkHeader ? 'text-neutral-600 hover:text-neutral-900' : 'text-white/90 hover:text-white'}
+                      ${location.pathname === item.href ? 'font-semibold' : ''}
+                      after:content-[''] after:absolute after:left-0 after:bottom-0 after:h-[2px] after:bg-primary
+                      after:transition-all after:duration-300 after:ease-out
+                      ${location.pathname === item.href ? 'after:w-full' : 'after:w-0 hover:after:w-full'}
+                    `}
+                  >
+                    {item.name}
+                  </Link>
+                )}
+              </div>
             ))}
           </nav>
 
-          {/* Contact + CTA - Desktop */}
-          <div className="hidden lg:flex items-center gap-8">
-            <a
-              href="tel:0610533067"
-              className={`text-sm tracking-wide ${textColor} transition-all duration-300 hover:opacity-70`}
-            >
-              06105 – 330 67
-            </a>
+          {/* CTA Button (rechts) */}
+          <div className="hidden lg:flex items-center gap-4">
             <Link
               to="/kontakt"
-              className={`text-xs tracking-[0.2em] uppercase px-6 py-3 border transition-all duration-300 ${buttonClass}`}
+              className={`group flex items-center gap-2.5 text-sm font-medium tracking-wide uppercase px-6 py-3.5 rounded-sm transition-all duration-300 ${
+                showDarkHeader
+                  ? 'bg-primary text-white hover:bg-primary-dark shadow-lg shadow-primary/20 hover:shadow-primary/30'
+                  : 'bg-white text-neutral-800 hover:bg-neutral-100 shadow-lg shadow-black/10'
+              }`}
             >
-              Termin buchen
+              <Calendar size={16} className="transition-transform duration-300 group-hover:scale-110" />
+              Termin vereinbaren
             </Link>
           </div>
 
           {/* Mobile Menu Button */}
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className={`lg:hidden relative z-10 p-2 transition-colors duration-300 ${isMobileMenuOpen ? 'text-stone-900' : textColor}`}
-            aria-label="Menü öffnen"
+            className={`lg:hidden relative z-50 p-2.5 rounded-lg transition-all duration-300 ${
+              isMobileMenuOpen
+                ? 'text-neutral-800 bg-neutral-100'
+                : showDarkHeader
+                  ? 'text-neutral-800 hover:bg-neutral-100'
+                  : 'text-white hover:bg-white/10'
+            }`}
+            aria-label={isMobileMenuOpen ? 'Menü schließen' : 'Menü öffnen'}
           >
-            {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            <AnimatePresence mode="wait">
+              {isMobileMenuOpen ? (
+                <motion.div
+                  key="close"
+                  initial={{ rotate: -90, opacity: 0 }}
+                  animate={{ rotate: 0, opacity: 1 }}
+                  exit={{ rotate: 90, opacity: 0 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  <X size={24} />
+                </motion.div>
+              ) : (
+                <motion.div
+                  key="menu"
+                  initial={{ rotate: 90, opacity: 0 }}
+                  animate={{ rotate: 0, opacity: 1 }}
+                  exit={{ rotate: -90, opacity: 0 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  <Menu size={24} />
+                </motion.div>
+              )}
+            </AnimatePresence>
           </button>
         </div>
       </div>
 
-      {/* Mobile Menu */}
+      {/* Mobile Menu Overlay */}
       <AnimatePresence>
         {isMobileMenuOpen && (
-          <motion.div
-            initial={{ opacity: 0, backdropFilter: "blur(0px)" }}
-            animate={{ opacity: 1, backdropFilter: "blur(12px)" }}
-            exit={{ opacity: 0, backdropFilter: "blur(0px)" }}
-            transition={{ duration: 0.4 }}
-            className="fixed inset-0 bg-white/95 z-40 lg:hidden"
-          >
-            <div className="flex flex-col items-center justify-center h-full space-y-8 p-6">
-              {navigation.map((item, index) => (
-                <motion.div
-                  key={item.name}
-                  initial={{ opacity: 0, y: 30 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.1 + index * 0.1, duration: 0.5, ease: "easeOut" }}
-                >
-                  <Link
-                    to={item.href}
-                    className={`text-3xl font-display ${location.pathname === item.href
-                        ? 'text-stone-900 font-medium'
-                        : 'text-stone-400 hover:text-stone-900'
-                      } transition-colors duration-300`}
-                  >
-                    {item.name}
-                  </Link>
-                </motion.div>
-              ))}
+          <>
+            {/* Backdrop */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.3 }}
+              className="fixed inset-0 bg-black/20 backdrop-blur-sm z-40 lg:hidden"
+              onClick={() => setIsMobileMenuOpen(false)}
+            />
 
-              <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.5, duration: 0.5 }}
-                className="pt-12 border-t border-stone-200 w-full max-w-xs text-center flex flex-col items-center gap-6"
-              >
-                <a
-                  href="tel:0610533067"
-                  className="text-xl font-display text-stone-600 hover:text-stone-900 transition-colors"
+            {/* Mobile Menu Panel */}
+            <motion.div
+              initial={{ opacity: 0, x: '100%' }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: '100%' }}
+              transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+              className="fixed top-0 right-0 bottom-0 w-full max-w-sm bg-white z-40 lg:hidden shadow-2xl"
+            >
+              <div className="flex flex-col h-full pt-24 pb-8 px-6 overflow-y-auto">
+                {/* Mobile Navigation Items */}
+                <nav className="flex-1 space-y-1">
+                  {navigation.map((item, index) => (
+                    <motion.div
+                      key={item.name}
+                      initial={{ opacity: 0, x: 20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: 0.1 + index * 0.05, duration: 0.4 }}
+                    >
+                      {item.hasDropdown ? (
+                        <div className="border-b border-neutral-100">
+                          <button
+                            onClick={() => setMobileDropdownOpen(!mobileDropdownOpen)}
+                            className={`w-full flex items-center justify-between py-4 text-lg font-medium transition-colors ${
+                              isSortimentActive ? 'text-primary' : 'text-neutral-800'
+                            }`}
+                          >
+                            {item.name}
+                            <ChevronDown
+                              size={20}
+                              className={`transition-transform duration-300 ${mobileDropdownOpen ? 'rotate-180' : ''}`}
+                            />
+                          </button>
+
+                          <AnimatePresence>
+                            {mobileDropdownOpen && (
+                              <motion.div
+                                initial={{ height: 0, opacity: 0 }}
+                                animate={{ height: 'auto', opacity: 1 }}
+                                exit={{ height: 0, opacity: 0 }}
+                                transition={{ duration: 0.3 }}
+                                className="overflow-hidden"
+                              >
+                                <div className="pb-4 pl-4 space-y-1">
+                                  {item.children?.map((child) => (
+                                    <Link
+                                      key={child.name}
+                                      to={child.href}
+                                      className={`block py-3 px-4 text-base rounded-lg transition-all ${
+                                        location.pathname === child.href
+                                          ? 'text-primary bg-primary/5 font-medium'
+                                          : 'text-neutral-600 hover:text-neutral-900 hover:bg-neutral-50'
+                                      }`}
+                                    >
+                                      {child.name}
+                                    </Link>
+                                  ))}
+                                </div>
+                              </motion.div>
+                            )}
+                          </AnimatePresence>
+                        </div>
+                      ) : (
+                        <Link
+                          to={item.href}
+                          className={`block py-4 text-lg font-medium border-b border-neutral-100 transition-colors ${
+                            location.pathname === item.href
+                              ? 'text-primary'
+                              : 'text-neutral-800 hover:text-primary'
+                          }`}
+                        >
+                          {item.name}
+                        </Link>
+                      )}
+                    </motion.div>
+                  ))}
+                </nav>
+
+                {/* Mobile Footer with Contact & CTA */}
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.4, duration: 0.4 }}
+                  className="mt-8 space-y-4 pt-6 border-t border-neutral-200"
                 >
-                  06105 – 330 67
-                </a>
-                <Link
-                  to="/kontakt"
-                  className="w-full inline-flex items-center justify-center px-8 py-4 text-xs tracking-[0.2em] uppercase border border-stone-900 text-stone-900 hover:bg-stone-900 hover:text-white transition-all duration-300"
-                >
-                  Termin buchen
-                </Link>
-              </motion.div>
-            </div>
-          </motion.div>
+                  <a
+                    href="tel:0610533067"
+                    className="flex items-center gap-3 py-3 text-neutral-600 hover:text-neutral-900 transition-colors"
+                  >
+                    <div className="w-10 h-10 rounded-full bg-neutral-100 flex items-center justify-center">
+                      <Phone size={18} />
+                    </div>
+                    <span className="text-base font-medium">06105 – 330 67</span>
+                  </a>
+
+                  <Link
+                    to="/kontakt"
+                    className="flex items-center justify-center gap-2.5 w-full py-4 bg-primary text-white text-base font-medium rounded-lg hover:bg-primary-dark transition-all shadow-lg shadow-primary/20"
+                  >
+                    <Calendar size={18} />
+                    Termin vereinbaren
+                  </Link>
+
+                  {/* Opening Hours Hint */}
+                  <p className="text-center text-sm text-neutral-500 pt-2">
+                    Mo-Fr 9-18 Uhr · Sa 9-14 Uhr
+                  </p>
+                </motion.div>
+              </div>
+            </motion.div>
+          </>
         )}
       </AnimatePresence>
     </header>

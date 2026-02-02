@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 85" fill="none">
+  <!-- Marokkanisches Quatrefoil Symbol - exakte Replika -->
+  <g transform="translate(4, 4)">
+    <!-- Äußere Form: 4-Punkt marokkanisches Fliesen-Muster -->
+    <!-- Die Form besteht aus 4 "Blütenblättern" mit konkaven Einbuchtungen -->
+    <path d="M36 2
+             C40 2, 44 4, 48 8
+             C52 4, 56 2, 60 2
+             C64 2, 68 6, 70 10
+             C72 14, 72 18, 70 22
+             C74 26, 76 30, 76 36
+             C76 42, 74 46, 70 50
+             C72 54, 72 58, 70 62
+             C68 66, 64 70, 60 70
+             C56 70, 52 68, 48 64
+             C44 68, 40 70, 36 70
+             C32 70, 28 68, 24 64
+             C20 68, 16 70, 12 70
+             C8 70, 4 66, 2 62
+             C0 58, 0 54, 2 50
+             C-2 46, -4 42, -4 36
+             C-4 30, -2 26, 2 22
+             C0 18, 0 14, 2 10
+             C4 6, 8 2, 12 2
+             C16 2, 20 4, 24 8
+             C28 4, 32 2, 36 2Z"
+          fill="#C41E3A"
+          transform="translate(4, 4)"/>
+
+    <!-- Innere weiße Raute/Fliese -->
+    <path d="M40 20 L58 38 L40 56 L22 38 Z" fill="white"/>
+
+    <!-- V-förmiges Dach-Symbol in der Mitte -->
+    <path d="M30 34 L40 48 L50 34"
+          stroke="#C41E3A"
+          stroke-width="3"
+          fill="none"
+          stroke-linecap="round"
+          stroke-linejoin="round"/>
+  </g>
+
+  <!-- Text "Fliesen" in Grau -->
+  <text x="95" y="46"
+        font-family="'Segoe UI', system-ui, -apple-system, sans-serif"
+        font-size="32"
+        font-weight="400"
+        fill="#555555"
+        letter-spacing="-0.3">Fliesen</text>
+
+  <!-- Text "Kny" in Rot (etwas fetter) -->
+  <text x="210" y="46"
+        font-family="'Segoe UI', system-ui, -apple-system, sans-serif"
+        font-size="32"
+        font-weight="600"
+        fill="#C41E3A"
+        letter-spacing="-0.3">Kny</text>
+
+  <!-- Tagline kursiv -->
+  <text x="95" y="68"
+        font-family="'Segoe UI', system-ui, -apple-system, sans-serif"
+        font-size="12"
+        font-weight="400"
+        fill="#888888"
+        font-style="italic"
+        letter-spacing="0.2">Der Geheimtipp für Fliesen &amp; Sanitär im Rhein-Main</text>
+</svg>
