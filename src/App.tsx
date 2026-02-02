@@ -8,7 +8,7 @@ import { Kontakt } from './pages/Kontakt'
 
 function App() {
   return (
-    <div className="min-h-screen bg-stone-50">
+    <div className="min-h-screen bg-white">
       <Header />
       <main>
         <Routes>

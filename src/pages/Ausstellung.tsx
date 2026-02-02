@@ -4,61 +4,68 @@ import { Link } from 'react-router-dom'
 export const Ausstellung = () => {
   const collections = [
     {
-      title: 'Keramische Fliesen',
-      description: 'Von klassisch bis modern – unsere Kollektion umfasst Wandfliesen, Bodenfliesen und Großformate führender Hersteller aus Italien, Spanien und Deutschland.',
-      image: 'https://images.unsplash.com/photo-1584622781564-1d987f7333c1?w=1200&h=800&fit=crop',
-      features: ['Großformate bis 120x120cm', 'Feinsteinzeug', 'Dekorfliesen', 'Outdoor-Fliesen']
+      title: 'Keramik & Großformate',
+      description: 'Feinsteinzeug, Steinoptik, Betonoptik und XXL-Formate für architektonische Flächen.',
+      image: '/images/service-showroom.jpg',
+      features: ['Großformate', 'Feinsteinzeug', 'Wand & Boden', 'Indoor/Outdoor']
     },
     {
-      title: 'Naturstein',
-      description: 'Edle Natursteine aus aller Welt – Marmor, Granit, Travertin und Schiefer in einzigartiger Qualität für anspruchsvolle Projekte.',
-      image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1200&h=800&fit=crop',
-      features: ['Marmor', 'Granit', 'Travertin', 'Schiefer']
+      title: 'Naturstein & Manufaktur',
+      description: 'Marmor, Travertin und Schiefer – sorgfältig ausgewählt für exklusive Projekte.',
+      image: '/images/gallery-outdoor-terrace.jpg',
+      features: ['Marmor', 'Travertin', 'Schiefer', 'Natursteinpflege']
     },
     {
-      title: 'Mosaik & Dekor',
-      description: 'Kunstvolle Mosaikarbeiten und dekorative Elemente für individuelle Akzente in Bad, Küche und Wohnbereich.',
-      image: 'https://images.unsplash.com/photo-1620626011761-996317b8d101?w=1200&h=800&fit=crop',
-      features: ['Glasmosaik', 'Steinmosaik', 'Metallmosaik', 'Handgefertigt']
+      title: 'Mosaik & Design',
+      description: 'Detailverliebte Akzente, individuelle Muster und handveredelte Oberflächen.',
+      image: '/images/service-mosaic-art.jpg',
+      features: ['Glas & Metall', 'Sonderformate', 'Bordüren', 'Akzentflächen']
     },
     {
-      title: 'Sanitärobjekte',
-      description: 'Ausgefallene Waschtische, Badewannen und Armaturen von internationalen Design-Manufakturen.',
-      image: 'https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=1200&h=800&fit=crop',
-      features: ['Design-Waschtische', 'Freistehende Wannen', 'Premium-Armaturen', 'Accessoires']
+      title: 'Sanitär & Ausstattung',
+      description: 'Design-Armaturen, Waschtische und komplette Badwelten mit stimmigem Konzept.',
+      image: '/images/hero-luxury-bathroom.jpg',
+      features: ['Premium-Armaturen', 'Badmöbel', 'Spa-Konzepte', 'Accessoires']
     }
   ]
 
   const galleryImages = [
-    'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=600&h=400&fit=crop',
-    'https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=600&h=400&fit=crop',
-    'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=600&h=400&fit=crop',
-    'https://images.unsplash.com/photo-1600573472592-401b489a3cdc?w=600&h=400&fit=crop',
-    'https://images.unsplash.com/photo-1600210492493-0946911123ea?w=600&h=400&fit=crop',
-    'https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=600&h=400&fit=crop'
+    '/images/gallery-luxury-bathroom.jpg',
+    '/images/gallery-modern-kitchen.jpg',
+    '/images/gallery-outdoor-terrace.jpg',
+    '/images/service-tile-installation.jpg',
+    '/images/service-showroom.jpg',
+    '/images/about-team.jpg'
   ]
 
   return (
-    <div className="bg-stone-50">
+    <div className="bg-white">
       {/* Hero Section */}
-      <section className="relative pt-32 pb-20 lg:pt-40 lg:pb-28 bg-stone-100">
-        <div className="container-custom">
+      <section className="relative pt-32 pb-20 lg:pt-40 lg:pb-28">
+        <div className="absolute inset-0">
+          <img
+            src="/images/service-showroom.jpg"
+            alt="Showroom von Fliesen KNY"
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-stone-900/60" />
+        </div>
+        <div className="relative container-custom">
           <div className="max-w-3xl">
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
             >
-              <p className="text-sm uppercase tracking-elegant text-stone-500 mb-4">
-                Unsere Ausstellung
+              <p className="text-xs uppercase tracking-[0.3em] text-stone-200 mb-4">
+                Ausstellung
               </p>
-              <h1 className="font-display text-4xl md:text-5xl lg:text-6xl text-stone-900 mb-6">
+              <h1 className="font-display text-4xl md:text-5xl lg:text-6xl text-white mb-6">
                 Inspiration auf über 1000 m²
               </h1>
-              <p className="text-lg text-stone-600 leading-relaxed">
-                Besuchen Sie eine der größten Ausstellungen für besondere Fliesen,
-                Natursteine und Sanitärobjekte im Rhein-Main-Gebiet. Erleben Sie
-                Materialien, Farben und Texturen hautnah.
+              <p className="text-lg text-stone-200 leading-relaxed">
+                Erleben Sie Materialien, Farben und Texturen in einer der größten
+                Fliesen- und Sanitär-Ausstellungen im Rhein-Main-Gebiet.
               </p>
             </motion.div>
           </div>
@@ -77,17 +84,15 @@ export const Ausstellung = () => {
             >
               <div className="divider mb-8" />
               <h2 className="font-display text-3xl md:text-4xl text-stone-900 mb-6">
-                Ein einzigartiges Sortiment
+                Räume erleben, Materialien verstehen
               </h2>
               <p className="text-stone-600 leading-relaxed mb-6">
-                Seit über 40 Jahren bieten wir unseren Kunden ein sorgfältig
-                kuratiertes Sortiment namhafter Markenhersteller und spezialisierter
-                Manufakturen aus der ganzen Welt.
+                Unsere Ausstellung ist wie ein kuratiertes Interior-Atelier: Sie sehen
+                Flächen in echten Raumkonzepten und spüren die Qualität direkt vor Ort.
               </p>
               <p className="text-stone-600 leading-relaxed mb-8">
-                Von klassischen Designs bis zu avantgardistischen Kreationen –
-                bei uns finden Sie das Besondere für Ihr Zuhause. Unsere erfahrenen
-                Fachberater stehen Ihnen mit Kompetenz und Leidenschaft zur Seite.
+                Gemeinsam mit unseren Beratern entwickeln Sie ein stimmiges Gesamtbild –
+                von Fliesen über Naturstein bis hin zu Sanitär und Accessoires.
               </p>
               <Link to="/kontakt" className="btn-primary">
                 Beratungstermin vereinbaren
@@ -104,15 +109,15 @@ export const Ausstellung = () => {
               <div className="space-y-4">
                 <div className="aspect-[4/5] overflow-hidden bg-stone-200">
                   <img
-                    src="https://images.unsplash.com/photo-1600210491892-03d54c0aaf87?w=400&h=500&fit=crop"
-                    alt="Showroom Detail"
+                    src="/images/gallery-modern-kitchen.jpg"
+                    alt="Materialinszenierung"
                     className="w-full h-full object-cover"
                   />
                 </div>
                 <div className="aspect-square overflow-hidden bg-stone-200">
                   <img
-                    src="https://images.unsplash.com/photo-1600566752355-35792bedcfea?w=400&h=400&fit=crop"
-                    alt="Fliesenauswahl"
+                    src="/images/service-tile-installation.jpg"
+                    alt="Fliesenverlegung"
                     className="w-full h-full object-cover"
                   />
                 </div>
@@ -120,15 +125,15 @@ export const Ausstellung = () => {
               <div className="space-y-4 pt-8">
                 <div className="aspect-square overflow-hidden bg-stone-200">
                   <img
-                    src="https://images.unsplash.com/photo-1600585154363-67eb9e2e2099?w=400&h=400&fit=crop"
-                    alt="Naturstein"
+                    src="/images/gallery-outdoor-terrace.jpg"
+                    alt="Outdoorflächen"
                     className="w-full h-full object-cover"
                   />
                 </div>
                 <div className="aspect-[4/5] overflow-hidden bg-stone-200">
                   <img
-                    src="https://images.unsplash.com/photo-1600607687644-c7171b42498f?w=400&h=500&fit=crop"
-                    alt="Baddesign"
+                    src="/images/hero-luxury-bathroom.jpg"
+                    alt="Badgestaltung"
                     className="w-full h-full object-cover"
                   />
                 </div>
@@ -139,7 +144,7 @@ export const Ausstellung = () => {
       </section>
 
       {/* Collections */}
-      <section className="section-padding bg-stone-100">
+      <section className="section-padding bg-stone-50">
         <div className="container-custom">
           <div className="text-center mb-16">
             <motion.div
@@ -150,10 +155,10 @@ export const Ausstellung = () => {
             >
               <div className="divider mx-auto mb-8" />
               <h2 className="font-display text-3xl md:text-4xl lg:text-5xl text-stone-900 mb-4">
-                Unsere Kollektionen
+                Kuratierte Kollektionen
               </h2>
               <p className="text-stone-600 max-w-2xl mx-auto">
-                Entdecken Sie unser vielfältiges Angebot an hochwertigen Materialien.
+                Materialien, die zeitlose Eleganz mit technischer Präzision verbinden.
               </p>
             </motion.div>
           </div>
@@ -166,9 +171,7 @@ export const Ausstellung = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.8 }}
-                className={`grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center ${
-                  index % 2 === 1 ? 'lg:flex-row-reverse' : ''
-                }`}
+                className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center"
               >
                 <div className={index % 2 === 1 ? 'lg:order-2' : ''}>
                   <div className="aspect-[3/2] overflow-hidden bg-stone-200">
@@ -180,7 +183,7 @@ export const Ausstellung = () => {
                   </div>
                 </div>
                 <div className={index % 2 === 1 ? 'lg:order-1' : ''}>
-                  <p className="text-sm uppercase tracking-elegant text-stone-500 mb-4">
+                  <p className="text-xs uppercase tracking-[0.2em] text-stone-500 mb-4">
                     {String(index + 1).padStart(2, '0')}
                   </p>
                   <h3 className="font-display text-3xl md:text-4xl text-stone-900 mb-4">
@@ -193,7 +196,7 @@ export const Ausstellung = () => {
                     {collection.features.map((feature) => (
                       <span
                         key={feature}
-                        className="px-4 py-2 bg-stone-50 text-stone-700 text-sm"
+                        className="px-4 py-2 bg-white text-stone-700 text-sm border border-stone-200"
                       >
                         {feature}
                       </span>
@@ -218,7 +221,7 @@ export const Ausstellung = () => {
             >
               <div className="divider mx-auto mb-8" />
               <h2 className="font-display text-3xl md:text-4xl text-stone-900 mb-4">
-                Impressionen
+                Impressionen aus dem Showroom
               </h2>
             </motion.div>
           </div>
@@ -226,11 +229,11 @@ export const Ausstellung = () => {
           <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
             {galleryImages.map((image, index) => (
               <motion.div
-                key={index}
+                key={image}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
+                transition={{ duration: 0.5, delay: index * 0.05 }}
                 className="aspect-[3/2] overflow-hidden bg-stone-200 group"
               >
                 <img
@@ -254,11 +257,11 @@ export const Ausstellung = () => {
             transition={{ duration: 0.8 }}
           >
             <h2 className="font-display text-3xl md:text-4xl lg:text-5xl mb-6">
-              Erleben Sie unsere Ausstellung
+              Erleben Sie Materialien mit allen Sinnen
             </h2>
             <p className="text-lg text-stone-400 mb-8 max-w-xl mx-auto">
-              Vereinbaren Sie einen persönlichen Beratungstermin und lassen Sie
-              sich von unserem Team durch die Ausstellung führen.
+              Vereinbaren Sie einen persönlichen Termin und lassen Sie sich von unserem
+              Team durch die Ausstellung führen.
             </p>
             <div className="flex flex-col sm:flex-row justify-center gap-4">
               <Link to="/kontakt" className="btn-primary bg-white text-stone-900 hover:bg-stone-100">
@@ -269,32 +272,6 @@ export const Ausstellung = () => {
               </a>
             </div>
           </motion.div>
-        </div>
-      </section>
-
-      {/* Opening Hours & Location */}
-      <section className="section-padding-sm bg-stone-100">
-        <div className="container-custom">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-center md:text-left">
-            <div>
-              <h3 className="text-xs uppercase tracking-elegant text-stone-500 mb-4">
-                Öffnungszeiten
-              </h3>
-              <div className="text-stone-700 space-y-1">
-                <p>Montag – Freitag: 9:00 – 12:30 & 14:00 – 18:00</p>
-                <p>Samstag: 9:00 – 12:30</p>
-              </div>
-            </div>
-            <div>
-              <h3 className="text-xs uppercase tracking-elegant text-stone-500 mb-4">
-                Anfahrt
-              </h3>
-              <div className="text-stone-700 space-y-1">
-                <p>Benzstraße 3</p>
-                <p>64546 Mörfelden-Walldorf</p>
-              </div>
-            </div>
-          </div>
         </div>
       </section>
     </div>
