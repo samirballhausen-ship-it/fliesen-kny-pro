@@ -1,102 +1,130 @@
-import { motion } from 'framer-motion'
+import { useRef } from 'react'
+import { motion, useScroll, useTransform } from 'framer-motion'
 import { Link } from 'react-router-dom'
+import { ArrowRight, Check, MapPin } from 'lucide-react'
 
 export const Ausstellung = () => {
+  const containerRef = useRef(null)
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start start", "end start"]
+  })
+
+  const y = useTransform(scrollYProgress, [0, 1], ["0%", "30%"])
+  const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0])
+
   const collections = [
     {
       title: 'Keramik & Großformate',
-      description: 'Feinsteinzeug, Steinoptik, Betonoptik und XXL-Formate für architektonische Flächen.',
+      description: 'Feinsteinzeug, Steinoptik, Betonoptik und XXL-Formate für zeitlose architektonische Flächen. Wir zeigen Ihnen, wie Großformate Räume optisch weiten.',
       image: '/images/service-showroom.jpg',
-      features: ['Großformate', 'Feinsteinzeug', 'Wand & Boden', 'Indoor/Outdoor']
+      features: ['Großformate bis 300cm', 'Fugenloses Design', 'Indoor & Outdoor', 'Rutschhemmung R10/R11']
     },
     {
       title: 'Naturstein & Manufaktur',
-      description: 'Marmor, Travertin und Schiefer – sorgfältig ausgewählt für exklusive Projekte.',
+      description: 'Jeder Stein ein Unikat: Marmor, Travertin und Schiefer, sorgfältig ausgewählt für exklusive Projekte mit Charakter und Patina.',
       image: '/images/gallery-outdoor-terrace.jpg',
-      features: ['Marmor', 'Travertin', 'Schiefer', 'Natursteinpflege']
+      features: ['Italienischer Marmor', 'Solnhofener Platten', 'Maßanfertigungen', 'Fachgerechte Verlegung']
     },
     {
       title: 'Mosaik & Design',
-      description: 'Detailverliebte Akzente, individuelle Muster und handveredelte Oberflächen.',
+      description: 'Detailverliebte Akzente für Nischen, Duschen oder als Statement-Wand. Entdecken Sie Glas-, Naturstein- und Metallmosaike.',
       image: '/images/service-mosaic-art.jpg',
-      features: ['Glas & Metall', 'Sonderformate', 'Bordüren', 'Akzentflächen']
+      features: ['Glasmosaik', 'Metallische Akzente', 'Organische Formen', 'Sonderanfertigungen']
     },
     {
       title: 'Sanitär & Ausstattung',
-      description: 'Design-Armaturen, Waschtische und komplette Badwelten mit stimmigem Konzept.',
+      description: 'Design-Armaturen, Waschtische und Badmöbel, die Funktion und Ästhetik vereinen. Wir planen Ihr Bad als Gesamtkunstwerk.',
       image: '/images/hero-luxury-bathroom.jpg',
-      features: ['Premium-Armaturen', 'Badmöbel', 'Spa-Konzepte', 'Accessoires']
+      features: ['Dornbracht & Vola', 'Freistehende Wannen', 'Maßmöbel', 'Lichtkonzepte']
     }
   ]
 
   const galleryImages = [
-    '/images/gallery-luxury-bathroom.jpg',
-    '/images/gallery-modern-kitchen.jpg',
-    '/images/gallery-outdoor-terrace.jpg',
-    '/images/service-tile-installation.jpg',
-    '/images/service-showroom.jpg',
-    '/images/about-team.jpg'
+    { src: '/images/gallery-luxury-bathroom.jpg', alt: 'Luxusbad Ausstellung' },
+    { src: '/images/gallery-modern-kitchen.jpg', alt: 'Kücheninsel' },
+    { src: '/images/gallery-outdoor-terrace.jpg', alt: 'Terrassenplatten' },
+    { src: '/images/service-tile-installation.jpg', alt: 'Verlegearbeiten' },
+    { src: '/images/service-showroom.jpg', alt: 'Showroom Übersicht' },
+    { src: '/images/about-team.jpg', alt: 'Beratungstermin' }
   ]
 
   return (
-    <div className="bg-white">
+    <div className="bg-stone-50" ref={containerRef}>
       {/* Hero Section */}
-      <section className="relative pt-32 pb-20 lg:pt-40 lg:pb-28">
-        <div className="absolute inset-0">
+      <section className="relative h-[70vh] flex items-center overflow-hidden">
+        <motion.div style={{ y, opacity }} className="absolute inset-0 z-0">
           <img
             src="/images/service-showroom.jpg"
-            alt="Showroom von Fliesen KNY"
-            className="w-full h-full object-cover"
+            alt="Fliesen KNY Showroom"
+            className="w-full h-full object-cover scale-105"
           />
-          <div className="absolute inset-0 bg-stone-900/60" />
-        </div>
-        <div className="relative container-custom">
-          <div className="max-w-3xl">
+          <div className="absolute inset-0 bg-stone-900/50 mix-blend-multiply" />
+          <div className="absolute inset-0 bg-gradient-to-t from-stone-50 via-transparent to-transparent" />
+        </motion.div>
+
+        <div className="relative z-10 container-custom pt-20">
+          <div className="max-w-4xl">
             <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.8 }}
+              className="inline-block mb-6 px-4 py-1 border border-white/30 backdrop-blur-md bg-white/10 text-white text-xs uppercase tracking-[0.3em]"
+            >
+              Showroom Mörfelden
+            </motion.div>
+            <motion.h1
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
+              transition={{ duration: 0.8, delay: 0.1 }}
+              className="font-display text-5xl md:text-7xl text-white mb-8 leading-tight"
             >
-              <p className="text-xs uppercase tracking-[0.3em] text-stone-200 mb-4">
-                Ausstellung
-              </p>
-              <h1 className="font-display text-4xl md:text-5xl lg:text-6xl text-white mb-6">
-                Inspiration auf über 1000 m²
-              </h1>
-              <p className="text-lg text-stone-200 leading-relaxed">
-                Erleben Sie Materialien, Farben und Texturen in einer der größten
-                Fliesen- und Sanitär-Ausstellungen im Rhein-Main-Gebiet.
-              </p>
-            </motion.div>
+              Inspiration auf <br className="hidden md:block" />
+              <span className="text-stone-300 italic">über 1000 m².</span>
+            </motion.h1>
+            <motion.p
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="text-lg md:text-xl text-stone-200 max-w-2xl leading-relaxed font-light"
+            >
+              Erleben Sie Materialien, Farben und Texturen in einer der größten
+              Fliesen- und Sanitär-Ausstellungen im Rhein-Main-Gebiet.
+            </motion.p>
           </div>
         </div>
       </section>
 
-      {/* Introduction */}
+      {/* Intro Grid */}
       <section className="section-padding">
         <div className="container-custom">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
             <motion.div
               initial={{ opacity: 0, x: -30 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8 }}
             >
-              <div className="divider mb-8" />
-              <h2 className="font-display text-3xl md:text-4xl text-stone-900 mb-6">
-                Räume erleben, Materialien verstehen
+              <h2 className="font-display text-4xl md:text-5xl text-stone-900 mb-8 leading-tight">
+                Räume erleben, <br />
+                <span className="text-stone-400 italic">Materialien fühlen.</span>
               </h2>
-              <p className="text-stone-600 leading-relaxed mb-6">
-                Unsere Ausstellung ist wie ein kuratiertes Interior-Atelier: Sie sehen
-                Flächen in echten Raumkonzepten und spüren die Qualität direkt vor Ort.
-              </p>
-              <p className="text-stone-600 leading-relaxed mb-8">
-                Gemeinsam mit unseren Beratern entwickeln Sie ein stimmiges Gesamtbild –
-                von Fliesen über Naturstein bis hin zu Sanitär und Accessoires.
-              </p>
-              <Link to="/kontakt" className="btn-primary">
-                Beratungstermin vereinbaren
-              </Link>
+              <div className="space-y-6 text-lg text-stone-600 font-light leading-relaxed">
+                <p>
+                  Unsere Ausstellung ist mehr als nur eine Präsentation von Produkten.
+                  Sie ist ein kuratiertes Interior-Atelier, konzipiert, um Ihnen ein
+                  Gefühl für Raumwirkung und Materialität zu vermitteln.
+                </p>
+                <p>
+                  In verschiedenen Kojen und Anwendungsbeispielen zeigen wir Ihnen das
+                  Zusammenspiel von Licht, Fuge und Oberfläche.
+                </p>
+              </div>
+              <div className="mt-10">
+                <Link to="/kontakt" className="btn-primary">
+                  Beratungstermin vereinbaren
+                </Link>
+              </div>
             </motion.div>
 
             <motion.div
@@ -104,66 +132,32 @@ export const Ausstellung = () => {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8 }}
-              className="grid grid-cols-2 gap-4"
+              className="relative"
             >
-              <div className="space-y-4">
-                <div className="aspect-[4/5] overflow-hidden bg-stone-200">
-                  <img
-                    src="/images/gallery-modern-kitchen.jpg"
-                    alt="Materialinszenierung"
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-                <div className="aspect-square overflow-hidden bg-stone-200">
-                  <img
-                    src="/images/service-tile-installation.jpg"
-                    alt="Fliesenverlegung"
-                    className="w-full h-full object-cover"
-                  />
-                </div>
+              <div className="aspect-[4/5] bg-stone-200 overflow-hidden relative z-10 ml-12">
+                <img
+                  src="/images/gallery-modern-kitchen.jpg"
+                  alt="Materialinszenierung"
+                  className="w-full h-full object-cover"
+                />
               </div>
-              <div className="space-y-4 pt-8">
-                <div className="aspect-square overflow-hidden bg-stone-200">
-                  <img
-                    src="/images/gallery-outdoor-terrace.jpg"
-                    alt="Outdoorflächen"
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-                <div className="aspect-[4/5] overflow-hidden bg-stone-200">
-                  <img
-                    src="/images/hero-luxury-bathroom.jpg"
-                    alt="Badgestaltung"
-                    className="w-full h-full object-cover"
-                  />
-                </div>
+              <div className="absolute top-12 -left-12 w-2/3 aspect-square bg-stone-300 overflow-hidden border-8 border-stone-50 z-20 shadow-xl shadow-stone-200/50">
+                <img
+                  src="/images/service-tile-installation.jpg"
+                  alt="Detailansicht"
+                  className="w-full h-full object-cover"
+                />
               </div>
             </motion.div>
           </div>
         </div>
       </section>
 
-      {/* Collections */}
-      <section className="section-padding bg-stone-50">
+      {/* Collections List */}
+      <section className="section-padding bg-white relative overflow-hidden">
+        <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-stone-200 to-transparent" />
         <div className="container-custom">
-          <div className="text-center mb-16">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-            >
-              <div className="divider mx-auto mb-8" />
-              <h2 className="font-display text-3xl md:text-4xl lg:text-5xl text-stone-900 mb-4">
-                Kuratierte Kollektionen
-              </h2>
-              <p className="text-stone-600 max-w-2xl mx-auto">
-                Materialien, die zeitlose Eleganz mit technischer Präzision verbinden.
-              </p>
-            </motion.div>
-          </div>
-
-          <div className="space-y-20">
+          <div className="space-y-32">
             {collections.map((collection, index) => (
               <motion.div
                 key={collection.title}
@@ -171,37 +165,39 @@ export const Ausstellung = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.8 }}
-                className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center"
+                className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24 items-center group"
               >
-                <div className={index % 2 === 1 ? 'lg:order-2' : ''}>
-                  <div className="aspect-[3/2] overflow-hidden bg-stone-200">
+                <div className={`${index % 2 === 1 ? 'lg:order-2' : ''} relative`}>
+                  <div className="aspect-[3/2] overflow-hidden bg-stone-100 relative z-10">
                     <img
                       src={collection.image}
                       alt={collection.title}
-                      className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
+                      className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
                     />
+                    <div className="absolute inset-0 bg-stone-900/0 group-hover:bg-stone-900/10 transition-colors duration-500" />
                   </div>
+                  {/* Decorative element */}
+                  <div className={`absolute -bottom-6 -right-6 w-full h-full border border-stone-200 z-0 hidden lg:block transition-transform duration-700 group-hover:translate-x-2 group-hover:translate-y-2 ${index % 2 === 1 ? 'left-6 items-end' : ''}`} />
                 </div>
+
                 <div className={index % 2 === 1 ? 'lg:order-1' : ''}>
-                  <p className="text-xs uppercase tracking-[0.2em] text-stone-500 mb-4">
-                    {String(index + 1).padStart(2, '0')}
-                  </p>
-                  <h3 className="font-display text-3xl md:text-4xl text-stone-900 mb-4">
+                  <span className="text-xs uppercase tracking-[0.2em] text-warm-600 mb-4 block">
+                    Kollektion 0{index + 1}
+                  </span>
+                  <h3 className="font-display text-4xl md:text-5xl text-stone-900 mb-6 group-hover:text-stone-700 transition-colors">
                     {collection.title}
                   </h3>
-                  <p className="text-stone-600 leading-relaxed mb-6">
+                  <p className="text-stone-600 leading-relaxed mb-8 text-lg font-light">
                     {collection.description}
                   </p>
-                  <div className="flex flex-wrap gap-3">
+                  <ul className="grid grid-cols-1 sm:grid-cols-2 gap-y-3 gap-x-6">
                     {collection.features.map((feature) => (
-                      <span
-                        key={feature}
-                        className="px-4 py-2 bg-white text-stone-700 text-sm border border-stone-200"
-                      >
+                      <li key={feature} className="flex items-center text-stone-500 font-medium text-sm">
+                        <Check size={16} className="text-warm-500 mr-3" />
                         {feature}
-                      </span>
+                      </li>
                     ))}
-                  </div>
+                  </ul>
                 </div>
               </motion.div>
             ))}
@@ -210,68 +206,72 @@ export const Ausstellung = () => {
       </section>
 
       {/* Gallery Grid */}
-      <section className="section-padding">
+      <section className="section-padding bg-stone-900 text-white">
         <div className="container-custom">
-          <div className="text-center mb-12">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-            >
-              <div className="divider mx-auto mb-8" />
-              <h2 className="font-display text-3xl md:text-4xl text-stone-900 mb-4">
-                Impressionen aus dem Showroom
-              </h2>
-            </motion.div>
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-16">
+            <div className="max-w-xl">
+              <h2 className="font-display text-3xl md:text-5xl mb-6">Impressionen</h2>
+              <p className="text-stone-400 font-light text-lg">
+                Ein kleiner Einblick in unsere Ausstellungswelt. Wir laden Sie herzlich ein,
+                die Atmosphäre persönlich zu erleben.
+              </p>
+            </div>
+            <div className="hidden md:block">
+              <span className="text-xs uppercase tracking-[0.2em] text-warm-500 flex items-center gap-2">
+                <MapPin size={16} /> Mörfelden-Walldorf
+              </span>
+            </div>
           </div>
 
           <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-            {galleryImages.map((image, index) => (
+            {galleryImages.map((img, index) => (
               <motion.div
-                key={image}
+                key={index}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: index * 0.05 }}
-                className="aspect-[3/2] overflow-hidden bg-stone-200 group"
+                className="group relative aspect-[4/3] overflow-hidden bg-stone-800"
               >
                 <img
-                  src={image}
-                  alt={`Ausstellung Impression ${index + 1}`}
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  src={img.src}
+                  alt={img.alt}
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 opacity-80 group-hover:opacity-100"
                 />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+                  <span className="text-white text-xs uppercase tracking-widest translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+                    {img.alt}
+                  </span>
+                </div>
               </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="section-padding bg-stone-900 text-white">
+      {/* Visit CTA */}
+      <section className="section-padding bg-warm-50">
         <div className="container-narrow text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-          >
-            <h2 className="font-display text-3xl md:text-4xl lg:text-5xl mb-6">
-              Erleben Sie Materialien mit allen Sinnen
-            </h2>
-            <p className="text-lg text-stone-400 mb-8 max-w-xl mx-auto">
-              Vereinbaren Sie einen persönlichen Termin und lassen Sie sich von unserem
-              Team durch die Ausstellung führen.
-            </p>
-            <div className="flex flex-col sm:flex-row justify-center gap-4">
-              <Link to="/kontakt" className="btn-primary bg-white text-stone-900 hover:bg-stone-100">
-                Termin vereinbaren
-              </Link>
-              <a href="tel:0610533067" className="btn-outline border-stone-600 text-white hover:bg-stone-800">
-                06105 – 330 67
-              </a>
-            </div>
-          </motion.div>
+          <h2 className="font-display text-4xl md:text-5xl text-stone-900 mb-8">
+            Besuchen Sie uns.
+          </h2>
+          <p className="text-lg text-stone-600 mb-10 max-w-xl mx-auto font-light">
+            Wir nehmen uns Zeit für Sie. Vereinbaren Sie vorab einen Termin für eine
+            ausführliche Beratung oder kommen Sie spontan zur Inspiration vorbei.
+          </p>
+          <div className="flex flex-col sm:flex-row justify-center gap-4">
+            <Link to="/kontakt" className="btn-primary">
+              Termin vereinbaren
+            </Link>
+            <a
+              href="https://maps.google.com"
+              target="_blank"
+              rel="noreferrer"
+              className="btn-outline"
+            >
+              Anfahrt planen
+            </a>
+          </div>
         </div>
       </section>
     </div>

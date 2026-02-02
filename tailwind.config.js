@@ -7,33 +7,33 @@ export default {
   theme: {
     extend: {
       colors: {
-        // Warm Stone/Beige palette for luxury aesthetic
+        // Warm Stone/Beige palette for luxury aesthetic - Refined
         stone: {
-          50: '#FAFAF9',
-          100: '#F5F5F4',
-          150: '#EFEDEA',
-          200: '#E7E5E4',
-          300: '#D6D3D1',
-          400: '#A8A29E',
-          500: '#78716C',
-          600: '#57534E',
-          700: '#44403C',
-          800: '#292524',
-          900: '#1C1917',
-          950: '#0C0A09',
+          50: '#FBFBF9',
+          100: '#F7F5F3',
+          200: '#EBE8E4',
+          300: '#D8D4CE',
+          400: '#A39E98',
+          500: '#75706B',
+          600: '#54504C',
+          700: '#403C39',
+          800: '#262422',
+          900: '#1A1817',
+          950: '#0D0C0B',
         },
-        // Warm accent color
+        // Warm accent color - Gold/Bronze tones
         warm: {
-          50: '#FDF8F3',
-          100: '#F9EFE4',
-          200: '#F0DCC7',
-          300: '#E5C5A3',
-          400: '#D4A574',
-          500: '#C4885A',
-          600: '#B5734A',
-          700: '#965C3E',
-          800: '#7A4B38',
-          900: '#644030',
+          50: '#FDFBF7',
+          100: '#F7F1E6',
+          200: '#EADEC3',
+          300: '#DCC79B',
+          400: '#C8A972',
+          500: '#B08D55',
+          600: '#94723E',
+          700: '#76552F',
+          800: '#5C4027',
+          900: '#483020',
+          950: '#2A1A10',
         },
       },
       fontFamily: {
@@ -41,9 +41,10 @@ export default {
         display: ['"Cormorant Garamond"', 'Georgia', 'serif'],
       },
       fontSize: {
-        'display-lg': ['4.5rem', { lineHeight: '1.1', letterSpacing: '-0.02em' }],
-        'display': ['3.5rem', { lineHeight: '1.15', letterSpacing: '-0.02em' }],
-        'display-sm': ['2.5rem', { lineHeight: '1.2', letterSpacing: '-0.01em' }],
+        'display-2xl': ['5.5rem', { lineHeight: '1', letterSpacing: '-0.02em' }],
+        'display-xl': ['4.5rem', { lineHeight: '1.1', letterSpacing: '-0.02em' }],
+        'display-lg': ['3.5rem', { lineHeight: '1.15', letterSpacing: '-0.02em' }],
+        'display-md': ['2.5rem', { lineHeight: '1.2', letterSpacing: '-0.01em' }],
       },
       spacing: {
         '18': '4.5rem',
