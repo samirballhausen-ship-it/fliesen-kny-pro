@@ -1,7 +1,7 @@
 {
   "name": "fliesen-kny-pro",
-  "version": "1.0.0",
-  "description": "Professionelle Website für Fliesen KNY mit 3D-Konfigurator",
+  "version": "2.0.0",
+  "description": "Premium Website für Fliesen KNY - Der Geheimtip für Fliesen und Sanitär im Rhein-Main-Gebiet",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -10,20 +10,16 @@
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0"
   },
   "dependencies": {
-    "@react-three/drei": "^9.92.0",
-    "@react-three/fiber": "^8.15.0",
     "framer-motion": "^11.18.2",
     "lucide-react": "^0.363.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "react-router-dom": "^6.30.3",
-    "three": "^0.158.0"
+    "react-router-dom": "^6.30.3"
   },
   "devDependencies": {
     "@types/node": "^20.0.0",
     "@types/react": "^18.3.27",
     "@types/react-dom": "^18.3.7",
-    "@types/three": "^0.158.0",
     "@vitejs/plugin-react": "^4.7.0",
     "autoprefixer": "^10.4.24",
     "postcss": "^8.5.6",
