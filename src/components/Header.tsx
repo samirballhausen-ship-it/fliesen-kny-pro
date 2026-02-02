@@ -30,7 +30,7 @@ export const Header = () => {
   // Determine if we're on the home page for transparent header
   const isHomePage = location.pathname === '/'
   const headerBg = isScrolled || !isHomePage
-    ? 'bg-stone-50/95 backdrop-blur-sm border-b border-stone-200'
+    ? 'bg-white/95 backdrop-blur-md border-b border-stone-200'
     : 'bg-transparent'
   const textColor = isScrolled || !isHomePage ? 'text-stone-900' : 'text-white'
 
@@ -47,14 +47,14 @@ export const Header = () => {
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center space-x-12">
+          <nav className="hidden lg:flex items-center space-x-10">
             {navigation.map((item) => (
               <Link
                 key={item.name}
                 to={item.href}
-                className={`text-sm tracking-wide uppercase transition-colors duration-300 ${
+                className={`text-xs tracking-[0.2em] uppercase transition-colors duration-300 ${
                   location.pathname === item.href
-                    ? `${textColor} font-medium`
+                    ? `${textColor} font-semibold`
                     : `${textColor} opacity-70 hover:opacity-100`
                 }`}
               >
@@ -63,11 +63,24 @@ export const Header = () => {
             ))}
           </nav>
 
-          {/* Contact Info - Desktop */}
-          <div className={`hidden lg:block text-sm ${textColor} transition-colors duration-300`}>
-            <a href="tel:0610533067" className="hover:opacity-70 transition-opacity">
+          {/* Contact + CTA - Desktop */}
+          <div className="hidden lg:flex items-center gap-6">
+            <a
+              href="tel:0610533067"
+              className={`text-sm ${textColor} transition-colors duration-300 hover:opacity-80`}
+            >
               06105 – 330 67
             </a>
+            <Link
+              to="/kontakt"
+              className={`text-xs tracking-[0.2em] uppercase px-5 py-3 border transition-all duration-300 ${
+                isScrolled || !isHomePage
+                  ? 'border-stone-900 text-stone-900 hover:bg-stone-900 hover:text-white'
+                  : 'border-white text-white hover:bg-white hover:text-stone-900'
+              }`}
+            >
+              Termin buchen
+            </Link>
           </div>
 
           {/* Mobile Menu Button */}
@@ -89,7 +102,7 @@ export const Header = () => {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className="fixed inset-0 bg-stone-50 z-40 lg:hidden"
+            className="fixed inset-0 bg-white z-40 lg:hidden"
           >
             <div className="flex flex-col items-center justify-center h-full space-y-8">
               {navigation.map((item, index) => (
@@ -115,7 +128,7 @@ export const Header = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.4 }}
-                className="pt-8 border-t border-stone-200"
+                className="pt-8 border-t border-stone-200 text-center"
               >
                 <a
                   href="tel:0610533067"
@@ -123,6 +136,12 @@ export const Header = () => {
                 >
                   06105 – 330 67
                 </a>
+                <Link
+                  to="/kontakt"
+                  className="mt-6 inline-flex items-center justify-center px-6 py-3 text-xs tracking-[0.2em] uppercase border border-stone-900 text-stone-900 hover:bg-stone-900 hover:text-white transition-all duration-300"
+                >
+                  Termin buchen
+                </Link>
               </motion.div>
             </div>
           </motion.div>

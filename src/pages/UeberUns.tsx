@@ -4,43 +4,51 @@ import { Link } from 'react-router-dom'
 export const UeberUns = () => {
   const values = [
     {
-      title: 'Qualität',
-      description: 'Wir führen ausschließlich Produkte, die unseren hohen Qualitätsansprüchen genügen.'
+      title: 'Exzellenz',
+      description: 'Jedes Material wird nach Haptik, Langlebigkeit und Designanspruch ausgewählt.'
     },
     {
-      title: 'Beratung',
-      description: 'Persönliche und kompetente Beratung steht bei uns an erster Stelle.'
+      title: 'Partnerschaft',
+      description: 'Wir arbeiten eng mit Architekten, Planern und Handwerkern zusammen.'
     },
     {
-      title: 'Erfahrung',
-      description: 'Über 40 Jahre Expertise in der Welt der Fliesen und Natursteine.'
+      title: 'Vertrauen',
+      description: 'Verlässliche Beratung und transparente Abläufe seit vier Jahrzehnten.'
     },
     {
       title: 'Leidenschaft',
-      description: 'Wir lieben was wir tun – und das spüren unsere Kunden.'
+      description: 'Wir schaffen Räume mit Charakter und begleiten Projekte mit Herz.'
     }
   ]
 
   return (
-    <div className="bg-stone-50">
+    <div className="bg-white">
       {/* Hero Section */}
-      <section className="relative pt-32 pb-20 lg:pt-40 lg:pb-28 bg-stone-100">
-        <div className="container-custom">
+      <section className="relative pt-32 pb-20 lg:pt-40 lg:pb-28">
+        <div className="absolute inset-0">
+          <img
+            src="/images/about-team.jpg"
+            alt="Team von Fliesen KNY"
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-stone-900/65" />
+        </div>
+        <div className="relative container-custom">
           <div className="max-w-3xl">
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
             >
-              <p className="text-sm uppercase tracking-elegant text-stone-500 mb-4">
+              <p className="text-xs uppercase tracking-[0.3em] text-stone-200 mb-4">
                 Über uns
               </p>
-              <h1 className="font-display text-4xl md:text-5xl lg:text-6xl text-stone-900 mb-6">
-                Tradition trifft Leidenschaft
+              <h1 className="font-display text-4xl md:text-5xl lg:text-6xl text-white mb-6">
+                Familiengeführt. Anspruchsvoll. Persönlich.
               </h1>
-              <p className="text-lg text-stone-600 leading-relaxed">
-                Seit über 40 Jahren sind wir Ihr verlässlicher Partner für
-                exklusive Fliesen, Natursteine und Sanitärobjekte im Rhein-Main-Gebiet.
+              <p className="text-lg text-stone-200 leading-relaxed">
+                Seit über 40 Jahren stehen wir für hochwertige Fliesen- und Sanitärkonzepte,
+                die Design, Funktion und Handwerk vereinen.
               </p>
             </motion.div>
           </div>
@@ -60,11 +68,10 @@ export const UeberUns = () => {
             >
               <div className="aspect-[4/5] overflow-hidden bg-stone-200 relative">
                 <img
-                  src="https://images.unsplash.com/photo-1600607687644-c7171b42498f?w=800&h=1000&fit=crop"
-                  alt="Unser Showroom"
+                  src="/images/gallery-modern-kitchen.jpg"
+                  alt="Showroom-Inspiration"
                   className="w-full h-full object-cover"
                 />
-                {/* Accent */}
                 <div className="absolute -bottom-6 -right-6 w-32 h-32 bg-warm-100 -z-10" />
               </div>
             </motion.div>
@@ -81,23 +88,18 @@ export const UeberUns = () => {
                 Unsere Geschichte
               </h2>
               <p className="text-stone-600 leading-relaxed mb-6">
-                Was als kleine Fliesenhandlung begann, ist heute eine der
-                angesehensten Adressen für hochwertige Fliesen und Sanitär
-                im Rhein-Main-Gebiet. Der Grundstein für unseren Erfolg wurde
-                vor über 40 Jahren gelegt – mit einer einfachen Vision:
-                Unseren Kunden das Beste zu bieten.
+                Fliesen KNY steht seit 1982 für exklusive Oberflächen und anspruchsvolle
+                Badkonzepte. Was als regionales Fachgeschäft begann, ist heute eine der
+                ersten Adressen für hochwertige Fliesenwelten im Rhein-Main-Gebiet.
               </p>
               <p className="text-stone-600 leading-relaxed mb-6">
-                Heute präsentieren wir auf über 1000 m² Ausstellungsfläche
-                ein einzigartiges Sortiment namhafter Markenhersteller und
-                spezialisierter Manufakturen aus der ganzen Welt. Von klassischen
-                Designs bis zu avantgardistischen Kreationen – bei uns finden
-                Sie das Besondere.
+                Unser Anspruch ist es, Materialien so zu kombinieren, dass Räume
+                Persönlichkeit gewinnen – mit klaren Linien, natürlichen Strukturen und
+                einem Sinn für zeitlose Eleganz.
               </p>
               <p className="text-stone-600 leading-relaxed">
-                Unser Team aus erfahrenen Fachberatern begleitet Sie mit
-                Kompetenz und Leidenschaft von der ersten Idee bis zur
-                perfekten Umsetzung Ihres Projekts.
+                Das Ergebnis: langfristige Partnerschaften, zufriedene Kunden und
+                Projekte, die bis ins Detail überzeugen.
               </p>
             </motion.div>
           </div>
@@ -116,10 +118,10 @@ export const UeberUns = () => {
             >
               <div className="divider bg-stone-700 mx-auto mb-8" />
               <h2 className="font-display text-3xl md:text-4xl lg:text-5xl mb-4">
-                Unsere Werte
+                Werte, die man spürt
               </h2>
               <p className="text-stone-400 max-w-2xl mx-auto">
-                Was uns antreibt und wofür wir stehen.
+                Unsere Arbeit steht für Eleganz, Präzision und vertrauensvolle Zusammenarbeit.
               </p>
             </motion.div>
           </div>
@@ -154,27 +156,25 @@ export const UeberUns = () => {
             >
               <div className="divider mb-8" />
               <h2 className="font-display text-3xl md:text-4xl text-stone-900 mb-6">
-                Unser Team
+                Ein Team, das Räume versteht
               </h2>
               <p className="text-stone-600 leading-relaxed mb-6">
-                Hinter Fliesen KNY steht ein Team aus leidenschaftlichen Experten,
-                die ihr Handwerk verstehen und lieben. Unsere spezialisierten
-                Fachberater bringen jahrelange Erfahrung mit und sind stets auf
-                dem neuesten Stand der Trends und Entwicklungen.
+                Unsere Berater kombinieren handwerkliche Expertise mit einem
+                feinen Gespür für Material und Raumwirkung. Dadurch entstehen
+                Konzepte, die sowohl ästhetisch als auch funktional überzeugen.
               </p>
               <p className="text-stone-600 leading-relaxed mb-8">
-                Wir nehmen uns Zeit für Sie, hören Ihren Wünschen aufmerksam zu
-                und entwickeln gemeinsam mit Ihnen die perfekte Lösung für
-                Ihr Projekt – ob kleine Renovierung oder großes Bauvorhaben.
+                Wir begleiten Ihr Projekt von der Idee bis zur finalen Verlegung
+                und koordinieren alle Schnittstellen mit Ihren Fachbetrieben.
               </p>
               <div className="grid grid-cols-2 gap-8">
                 <div>
                   <p className="font-display text-4xl text-stone-900 mb-1">40+</p>
-                  <p className="text-sm text-stone-500 uppercase tracking-wide">Jahre Erfahrung</p>
+                  <p className="text-xs uppercase tracking-[0.2em] text-stone-500">Jahre Erfahrung</p>
                 </div>
                 <div>
-                  <p className="font-display text-4xl text-stone-900 mb-1">1000+</p>
-                  <p className="text-sm text-stone-500 uppercase tracking-wide">m² Ausstellung</p>
+                  <p className="font-display text-4xl text-stone-900 mb-1">1000 m²</p>
+                  <p className="text-xs uppercase tracking-[0.2em] text-stone-500">Ausstellung</p>
                 </div>
               </div>
             </motion.div>
@@ -187,8 +187,8 @@ export const UeberUns = () => {
             >
               <div className="aspect-[4/3] overflow-hidden bg-stone-200">
                 <img
-                  src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=800&h=600&fit=crop"
-                  alt="Unser Team"
+                  src="/images/service-tile-installation.jpg"
+                  alt="Beratung bei Fliesen KNY"
                   className="w-full h-full object-cover"
                 />
               </div>
@@ -217,18 +217,18 @@ export const UeberUns = () => {
             {[
               {
                 number: '01',
-                title: 'Einzigartiges Sortiment',
-                description: 'Namhafte Markenhersteller und spezialisierte Manufakturen aus der ganzen Welt.'
+                title: 'Kuratiertes Portfolio',
+                description: 'Marken und Manufakturen, die Design und Qualität vereinen.'
               },
               {
                 number: '02',
                 title: 'Persönliche Beratung',
-                description: 'Erfahrene Fachberater, die sich Zeit für Ihre Wünsche und Ideen nehmen.'
+                description: 'Zeit für Ihre Wünsche, klare Antworten und kreative Lösungen.'
               },
               {
                 number: '03',
-                title: 'Große Ausstellung',
-                description: 'Erleben Sie Materialien, Farben und Texturen auf über 1000 m² hautnah.'
+                title: 'Showroom-Erlebnis',
+                description: 'Materialien fühlen, Oberflächen vergleichen, Ideen erleben.'
               }
             ].map((item, index) => (
               <motion.div
@@ -258,10 +258,10 @@ export const UeberUns = () => {
             transition={{ duration: 0.8 }}
           >
             <h2 className="font-display text-3xl md:text-4xl lg:text-5xl text-stone-900 mb-6">
-              Lernen Sie uns kennen
+              Lernen Sie uns persönlich kennen
             </h2>
             <p className="text-lg text-stone-600 mb-8 max-w-xl mx-auto">
-              Besuchen Sie unsere Ausstellung und erleben Sie, was uns besonders macht.
+              Besuchen Sie unsere Ausstellung und lassen Sie sich individuell beraten.
             </p>
             <div className="flex flex-col sm:flex-row justify-center gap-4">
               <Link to="/kontakt" className="btn-primary">

@@ -32,25 +32,33 @@ export const Kontakt = () => {
   }
 
   return (
-    <div className="bg-stone-50">
+    <div className="bg-white">
       {/* Hero Section */}
-      <section className="relative pt-32 pb-20 lg:pt-40 lg:pb-28 bg-stone-100">
-        <div className="container-custom">
+      <section className="relative pt-32 pb-20 lg:pt-40 lg:pb-28">
+        <div className="absolute inset-0">
+          <img
+            src="/images/hero-luxury-bathroom.jpg"
+            alt="Fliesen KNY Beratung"
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-stone-900/65" />
+        </div>
+        <div className="relative container-custom">
           <div className="max-w-3xl">
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
             >
-              <p className="text-sm uppercase tracking-elegant text-stone-500 mb-4">
+              <p className="text-xs uppercase tracking-[0.3em] text-stone-200 mb-4">
                 Kontakt
               </p>
-              <h1 className="font-display text-4xl md:text-5xl lg:text-6xl text-stone-900 mb-6">
-                Wir freuen uns auf Sie
+              <h1 className="font-display text-4xl md:text-5xl lg:text-6xl text-white mb-6">
+                Wir freuen uns auf Ihr Projekt
               </h1>
-              <p className="text-lg text-stone-600 leading-relaxed">
-                Besuchen Sie uns in unserer Ausstellung oder kontaktieren Sie
-                uns für eine persönliche Beratung.
+              <p className="text-lg text-stone-200 leading-relaxed">
+                Vereinbaren Sie einen Termin in unserem Showroom oder senden Sie uns
+                eine Nachricht – wir beraten Sie persönlich.
               </p>
             </motion.div>
           </div>
@@ -140,14 +148,14 @@ export const Kontakt = () => {
                 <h3 className="font-medium text-stone-900 mb-3">Anfahrt</h3>
                 <p className="text-stone-600 text-sm mb-4">
                   Wir befinden uns im Gewerbegebiet Mörfelden-Walldorf,
-                  nur wenige Minuten von der A5 entfernt.
-                  Kostenlose Parkplätze direkt vor dem Haus.
+                  nur wenige Minuten von der A5 entfernt. Kostenlose Parkplätze
+                  direkt vor dem Haus.
                 </p>
                 <a
                   href="https://maps.google.com/?q=Benzstraße+3,+64546+Mörfelden-Walldorf"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-sm uppercase tracking-wide text-stone-900 hover:text-stone-600 transition-colors"
+                  className="text-sm uppercase tracking-[0.2em] text-stone-900 hover:text-stone-600 transition-colors"
                 >
                   Route planen →
                 </a>
@@ -166,7 +174,7 @@ export const Kontakt = () => {
                   Schreiben Sie uns
                 </h2>
                 <p className="text-stone-600 mb-8">
-                  Wir melden uns schnellstmöglich bei Ihnen.
+                  Wir melden uns schnellstmöglich mit konkreten Vorschlägen.
                 </p>
 
                 {isSubmitted ? (
@@ -267,21 +275,15 @@ export const Kontakt = () => {
         </div>
       </section>
 
-      {/* Map Section (Placeholder) */}
-      <section className="h-96 bg-stone-200 relative">
-        <div className="absolute inset-0 flex items-center justify-center">
-          <div className="text-center">
-            <p className="text-stone-500 mb-4">Interaktive Karte</p>
-            <a
-              href="https://maps.google.com/?q=Benzstraße+3,+64546+Mörfelden-Walldorf"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-outline"
-            >
-              In Google Maps öffnen
-            </a>
-          </div>
-        </div>
+      {/* Map Section */}
+      <section className="h-96 bg-stone-200">
+        <iframe
+          title="Fliesen KNY Standort"
+          className="w-full h-full border-0"
+          loading="lazy"
+          referrerPolicy="no-referrer-when-downgrade"
+          src="https://www.google.com/maps?q=Benzstraße+3,+64546+Mörfelden-Walldorf&output=embed"
+        />
       </section>
     </div>
   )
