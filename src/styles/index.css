@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600&family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -7,7 +7,47 @@
 /* ========================================
    Premium Warm Neutral Design System
    FliesenKny - Quiet Luxury Aesthetic
+   Next-Gen Dark Luxury Upgrade 2026
    ======================================== */
+
+/* ========== CSS CUSTOM PROPERTIES ========== */
+:root {
+  /* Dark Mode Luxury Palette */
+  --color-bg-dark: #0D0D0D;
+  --color-bg-elevated: #141414;
+  --color-surface: #1A1A1A;
+  --color-border-dark: #2A2A2A;
+  --color-border-steel: #3D3D3D;
+
+  /* Gold Accent System */
+  --color-gold: #C9942E;
+  --color-gold-light: #D4A84E;
+  --color-gold-dark: #B37A24;
+
+  /* Cream Text for Dark Backgrounds */
+  --color-cream: #FAF8F5;
+  --color-cream-muted: #D9D0C1;
+
+  /* Glow Effects */
+  --glow-gold: 0 0 40px rgba(201, 148, 46, 0.15);
+  --glow-gold-md: 0 0 60px rgba(201, 148, 46, 0.20);
+  --glow-gold-lg: 0 0 80px rgba(201, 148, 46, 0.25);
+  --glow-gold-intense: 0 0 100px rgba(201, 148, 46, 0.35);
+  --glow-red: 0 0 40px rgba(206, 26, 30, 0.2);
+  --glow-red-lg: 0 0 60px rgba(206, 26, 30, 0.3);
+
+  /* Gradient Definitions */
+  --gradient-dark: linear-gradient(180deg, #0D0D0D 0%, #141414 100%);
+  --gradient-luxury: linear-gradient(135deg, #141414 0%, #1A1A1A 50%, #0D0D0D 100%);
+  --gradient-gold-subtle: linear-gradient(90deg, transparent 0%, rgba(201, 148, 46, 0.1) 50%, transparent 100%);
+  --gradient-vignette: radial-gradient(ellipse at center, transparent 0%, rgba(13, 13, 13, 0.4) 70%, rgba(13, 13, 13, 0.8) 100%);
+
+  /* Animation Timing */
+  --ease-premium: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-smooth: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-cinematic: cubic-bezier(0.83, 0, 0.17, 1);
+  --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+}
 
 @layer base {
   html {
@@ -229,6 +269,82 @@
   .quote-mark {
     @apply text-[6rem] leading-none text-primary/15 font-display;
   }
+
+  /* ========== DARK LUXURY COMPONENTS ========== */
+
+  /* Dark Card with Gold Glow on Hover */
+  .card-dark {
+    @apply bg-luxury-anthracite rounded-lg overflow-hidden
+           border border-luxury-smoke/50
+           transition-all duration-500 ease-expo-out;
+  }
+
+  .card-dark:hover {
+    @apply border-gold-500/30 shadow-card-glow -translate-y-3;
+  }
+
+  /* Glass Dark Effect */
+  .glass-luxury {
+    @apply bg-luxury-charcoal/90 backdrop-blur-xl border border-luxury-smoke/30;
+  }
+
+  /* Premium Button with Glow */
+  .btn-glow {
+    @apply relative inline-flex items-center justify-center px-10 py-5
+           bg-brand-red text-white font-body font-medium text-sm tracking-widest uppercase
+           overflow-hidden
+           transition-all duration-300 ease-premium
+           hover:shadow-glow-red-lg;
+  }
+
+  .btn-glow::before {
+    content: '';
+    @apply absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent
+           -translate-x-full;
+    animation: shimmer 3s infinite;
+  }
+
+  .btn-glow:hover::before {
+    animation-duration: 1.5s;
+  }
+
+  /* Gold Outline Button */
+  .btn-gold-outline {
+    @apply inline-flex items-center justify-center px-8 py-4
+           border border-gold-500/50 text-gold-500 font-body font-medium text-sm tracking-wider uppercase
+           rounded-sm bg-transparent
+           transition-all duration-300 ease-premium
+           hover:bg-gold-500/10 hover:border-gold-500 hover:shadow-glow-gold;
+  }
+
+  /* Nav Link Dark with Gold Underline */
+  .nav-link-dark {
+    @apply relative text-xs font-medium uppercase tracking-[0.15em] text-cream-300
+           transition-all duration-300 ease-premium hover:text-cream-100
+           after:content-[''] after:absolute after:left-0 after:bottom-[-6px]
+           after:w-0 after:h-[1px] after:bg-gradient-to-r after:from-gold-500 after:to-brand-red
+           after:transition-all after:duration-500 after:ease-expo-out
+           hover:after:w-full;
+  }
+
+  .nav-link-dark-active {
+    @apply text-cream-100 after:w-full;
+  }
+
+  /* Dark Section */
+  .section-dark {
+    @apply bg-luxury-charcoal text-cream-100;
+  }
+
+  /* Divider with Gold Accent */
+  .divider-gold {
+    @apply h-px bg-gradient-to-r from-transparent via-gold-500/30 to-transparent;
+  }
+
+  /* Accent Line Gold */
+  .accent-line-gold {
+    @apply w-16 h-[1px] bg-gradient-to-r from-gold-500 to-gold-600;
+  }
 }
 
 @layer utilities {
@@ -381,4 +497,207 @@
 
 .scrollbar-hide::-webkit-scrollbar {
   display: none;
+}
+
+/* ========== DARK LUXURY UTILITIES ========== */
+
+/* Dark Background Gradients */
+.bg-dark-gradient {
+  background: var(--gradient-dark);
+}
+
+.bg-luxury-gradient {
+  background: var(--gradient-luxury);
+}
+
+/* Vignette Overlay */
+.vignette {
+  position: relative;
+}
+
+.vignette::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--gradient-vignette);
+  pointer-events: none;
+}
+
+/* Gold Glow Background Blur */
+.glow-blob-gold {
+  @apply absolute rounded-full bg-gold-500/10 blur-[120px] pointer-events-none;
+}
+
+.glow-blob-red {
+  @apply absolute rounded-full bg-brand-red/10 blur-[100px] pointer-events-none;
+}
+
+/* Shimmer Effect for Buttons */
+.shimmer-effect {
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.1) 50%,
+    transparent 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 2s linear infinite;
+}
+
+/* Image Reveal Animation Utilities */
+.clip-reveal-up {
+  clip-path: inset(100% 0 0 0);
+}
+
+.clip-reveal-down {
+  clip-path: inset(0 0 100% 0);
+}
+
+.clip-reveal-left {
+  clip-path: inset(0 100% 0 0);
+}
+
+.clip-reveal-right {
+  clip-path: inset(0 0 0 100%);
+}
+
+.clip-revealed {
+  clip-path: inset(0 0 0 0);
+}
+
+/* Premium Hover with Gold Glow */
+.hover-glow-gold {
+  @apply transition-all duration-500 ease-expo-out;
+}
+
+.hover-glow-gold:hover {
+  box-shadow: var(--glow-gold-md);
+}
+
+/* Card Lift with Glow */
+.hover-lift-glow {
+  @apply transition-all duration-500 ease-expo-out;
+}
+
+.hover-lift-glow:hover {
+  @apply -translate-y-3;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3), var(--glow-gold);
+}
+
+/* Text on Dark Background */
+.text-on-dark {
+  @apply text-cream-100;
+}
+
+.text-on-dark-muted {
+  @apply text-cream-400;
+}
+
+/* Gold Text Gradient */
+.text-gradient-gold {
+  @apply bg-gradient-to-r from-gold-400 via-gold-500 to-gold-600 bg-clip-text text-transparent;
+}
+
+/* Dark Scrollbar */
+.scrollbar-dark::-webkit-scrollbar {
+  width: 8px;
+}
+
+.scrollbar-dark::-webkit-scrollbar-track {
+  @apply bg-luxury-charcoal;
+}
+
+.scrollbar-dark::-webkit-scrollbar-thumb {
+  @apply bg-luxury-smoke rounded-full;
+}
+
+.scrollbar-dark::-webkit-scrollbar-thumb:hover {
+  @apply bg-luxury-steel;
+}
+
+/* ========== LIGHTBOX STYLES ========== */
+
+.lightbox-overlay {
+  @apply fixed inset-0 z-50 bg-luxury-charcoal/95 backdrop-blur-xl
+         flex items-center justify-center;
+}
+
+.lightbox-image {
+  @apply max-w-[90vw] max-h-[85vh] object-contain rounded-lg;
+}
+
+.lightbox-nav {
+  @apply absolute top-1/2 -translate-y-1/2 w-12 h-12
+         flex items-center justify-center
+         bg-luxury-smoke/50 hover:bg-gold-500/20
+         border border-luxury-steel/50 hover:border-gold-500/50
+         rounded-full text-cream-100
+         transition-all duration-300 ease-premium
+         cursor-pointer;
+}
+
+.lightbox-close {
+  @apply absolute top-6 right-6 w-12 h-12
+         flex items-center justify-center
+         bg-luxury-smoke/50 hover:bg-brand-red/20
+         border border-luxury-steel/50 hover:border-brand-red/50
+         rounded-full text-cream-100
+         transition-all duration-300 ease-premium
+         cursor-pointer;
+}
+
+/* ========== CUSTOM CURSOR STYLES ========== */
+
+.cursor-dot {
+  @apply fixed w-3 h-3 bg-gold-500 rounded-full pointer-events-none z-[9999]
+         mix-blend-difference;
+  transform: translate(-50%, -50%);
+}
+
+.cursor-ring {
+  @apply fixed w-10 h-10 border border-gold-500/50 rounded-full pointer-events-none z-[9998];
+  transform: translate(-50%, -50%);
+  transition: transform 0.15s ease-out, border-color 0.3s ease;
+}
+
+.cursor-ring.hovering {
+  @apply scale-150 border-gold-500;
+}
+
+/* Hide default cursor when custom cursor is active */
+.custom-cursor-active {
+  cursor: none !important;
+}
+
+.custom-cursor-active * {
+  cursor: none !important;
+}
+
+/* ========== LOADING SCREEN ========== */
+
+.loading-screen {
+  @apply fixed inset-0 z-[100] bg-luxury-charcoal
+         flex flex-col items-center justify-center;
+}
+
+.loading-progress {
+  @apply absolute bottom-20 left-1/2 -translate-x-1/2
+         h-[1px] bg-gold-500 origin-left;
+}
+
+/* ========== REDUCED MOTION ========== */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .cursor-dot,
+  .cursor-ring {
+    display: none;
+  }
 }

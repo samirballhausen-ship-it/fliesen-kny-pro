@@ -1,164 +1,112 @@
+import React from 'react'
+
 interface LogoProps {
-  className?: string;
-  showTagline?: boolean;
-  variant?: 'full' | 'compact' | 'light' | 'dark';
+  color?: 'default' | 'white'
+  className?: string
+  variant?: 'dark' | 'light' | 'full' | 'compact'
+  showTagline?: boolean
 }
 
-export function Logo({
+export const Logo: React.FC<LogoProps> = ({
+  color = 'default',
   className = '',
-  showTagline = true,
-  variant = 'dark'
-}: LogoProps) {
-  // Determine if we're showing full or compact version
-  const isCompact = variant === 'compact';
+  variant = 'dark',
+  showTagline = true
+}) => {
+  // Support both color and variant props for compatibility
+  const isLight = variant === 'light' || color === 'white'
 
-  // Determine color scheme based on variant
-  const isLight = variant === 'light';
-  const textColor = isLight ? '#FFFFFF' : '#555555';
-  const knyColor = '#C41E3A';
-  const taglineColor = isLight ? 'rgba(255,255,255,0.85)' : '#777777';
+  const textColorPrimary = isLight ? '#FFFFFF' : '#1A1A1A'
+  const textColorAccent = isLight ? '#FFFFFF' : '#CE1A1E'
+  const taglineColor = isLight ? '#DDDDDD' : '#555555'
 
-  // Compact version - just the symbol
-  if (isCompact) {
-    return (
-      <svg
-        viewBox="0 0 64 64"
-        className={className}
-        aria-label="Fliesen Kny"
-      >
-        <QuatrefoilSymbol />
-      </svg>
-    );
-  }
-
-  // Full version with text
   return (
-    <svg
-      viewBox="0 0 320 80"
-      className={className}
-      aria-label="Fliesen Kny Logo"
-    >
-      {/* Quatrefoil Symbol */}
-      <g transform="translate(8, 8)">
-        <g transform="scale(0.8)">
-          <QuatrefoilSymbol />
-        </g>
-      </g>
+    <div className={`flex items-center gap-3 ${className}`}>
+      {/* Echtes Fliesen Kny Symbol SVG */}
+      <div className="w-12 h-12 md:w-14 md:h-14 shrink-0">
+        <svg viewBox="0 0 1000 1000" fill="none" xmlns="http://www.w3.org/2000/svg">
+          {/* Äußere Form - Rot */}
+          <path
+            d="M 503.47 950.58 L 478.60 944.22 L 462.40 891.00 L 428.86 847.04 L 388.95 812.92 L 369.28 800.19 L 331.11 790.94 L 276.74 790.94 L 265.75 784.58 L 259.96 703.60 L 209.64 685.67 L 152.38 641.13 L 115.36 592.54 L 94.54 535.86 L 94.54 402.83 L 125.77 331.11 L 177.25 275.00 L 261.12 232.78 L 262.28 167.99 L 268.64 154.69 L 320.69 152.38 L 333.42 141.97 L 388.95 125.77 L 417.29 105.53 L 457.20 49.42 L 534.70 49.42 L 556.11 85.86 L 601.80 126.93 L 675.84 152.38 L 726.74 155.85 L 730.78 231.62 L 744.09 243.77 L 766.07 247.24 L 806.56 269.22 L 858.03 319.54 L 889.27 375.06 L 905.46 424.81 L 904.31 524.29 L 867.29 607.58 L 805.40 670.63 L 761.44 696.08 L 733.10 702.44 L 725.58 787.47 L 658.48 790.94 L 622.62 801.35 L 560.15 848.78 L 503.47 950.58 Z"
+            fill="#CE1A1E"
+          />
+          {/* Mittlere Form - Weiß */}
+          <path
+            d="M 496.53 896.21 L 453.15 829.69 L 385.48 774.74 L 339.20 762.02 L 291.77 762.02 L 292.35 701.29 L 284.25 686.25 L 269.79 674.10 L 223.52 659.06 L 187.66 633.61 L 143.12 579.82 L 123.46 527.76 L 123.46 412.08 L 151.22 347.30 L 193.44 300.45 L 259.38 270.37 L 285.41 250.13 L 292.35 235.09 L 291.77 181.30 L 328.79 181.30 L 402.83 152.38 L 441.58 122.88 L 475.71 78.34 L 516.20 78.34 L 531.81 103.21 L 587.92 153.53 L 667.74 181.30 L 700.13 181.30 L 706.49 248.97 L 730.21 270.37 L 793.83 296.98 L 832.58 335.73 L 876.54 432.90 L 875.39 515.04 L 840.68 592.54 L 823.33 614.52 L 764.91 660.22 L 725.58 671.79 L 708.80 685.09 L 700.71 700.13 L 700.13 762.02 L 650.39 762.02 L 590.23 784.00 L 531.81 835.48 L 496.53 896.21 Z"
+            fill="#FFFFFF"
+          />
+          {/* Innere Form - Rot */}
+          <path
+            d="M 497.69 860.35 L 456.04 809.45 L 395.89 762.02 L 340.36 745.82 L 307.97 745.82 L 308.55 700.13 L 295.82 674.68 L 195.76 618.57 L 158.16 572.88 L 139.65 524.29 L 139.65 416.71 L 165.10 356.56 L 202.70 314.33 L 269.79 283.10 L 296.98 261.70 L 308.55 236.25 L 307.97 197.49 L 334.58 196.34 L 413.24 165.10 L 444.47 143.12 L 484.96 94.54 L 505.78 94.54 L 577.51 166.26 L 657.33 195.18 L 683.93 197.49 L 691.45 255.91 L 719.79 283.10 L 782.26 308.55 L 821.02 348.46 L 860.35 434.06 L 859.19 511.57 L 816.39 597.17 L 755.66 646.34 L 722.11 655.59 L 697.24 673.52 L 684.51 698.97 L 683.93 745.82 L 649.23 745.82 L 579.82 771.27 L 520.24 823.91 L 497.69 860.35 Z"
+            fill="#CE1A1E"
+          />
+          {/* Dekorative Elemente - Weiß */}
+          <path
+            d="M 312.60 546.85 L 302.76 542.80 L 304.50 522.56 L 461.83 522.56 L 478.60 515.04 L 473.39 501.74 L 430.59 476.29 L 405.14 453.15 L 380.85 441.58 L 321.85 392.99 L 366.97 396.47 L 390.10 417.29 L 415.55 430.01 L 444.47 455.46 L 491.90 485.54 L 502.31 485.54 L 510.41 476.29 L 535.86 463.56 L 626.09 395.31 L 670.63 393.57 L 611.05 441.58 L 585.60 454.31 L 543.96 487.85 L 519.67 500.58 L 514.46 515.04 L 531.23 522.56 L 685.09 522.56 L 689.14 525.45 L 687.98 540.49 L 681.62 545.69 L 312.60 546.85 Z"
+            fill="#FFFFFF"
+          />
+          <path
+            d="M 498.84 380.27 L 494.22 380.27 L 487.85 371.59 L 489.01 366.97 L 495.37 361.76 L 501.16 364.07 L 506.36 370.44 L 498.84 380.27 Z"
+            fill="#FFFFFF"
+          />
+        </svg>
+      </div>
 
-      {/* Company Name */}
-      <text
-        x="72"
-        y="38"
-        fontFamily="Playfair Display, Georgia, serif"
-        fontSize="28"
-        fontWeight="600"
-        letterSpacing="0.5"
-      >
-        <tspan fill={textColor}>Fliesen</tspan>
-        <tspan fill={knyColor} fontWeight="700"> Kny</tspan>
-      </text>
-
-      {/* Tagline */}
-      {showTagline && (
-        <text
-          x="72"
-          y="58"
-          fontFamily="Inter, system-ui, sans-serif"
-          fontSize="10"
-          fill={taglineColor}
-          letterSpacing="0.3"
-        >
-          Der Geheimtipp für Fliesen &amp; Sanitär im Rhein-Main
-        </text>
-      )}
-    </svg>
-  );
+      {/* Text Content */}
+      <div className="flex flex-col justify-center">
+        <div className="leading-none mb-0.5">
+          <span
+            className="font-sans font-medium text-xl md:text-2xl tracking-tight"
+            style={{ color: textColorPrimary }}
+          >
+            Fliesen
+          </span>
+          <span
+            className="font-sans font-bold text-xl md:text-2xl ml-1.5"
+            style={{ color: textColorAccent }}
+          >
+            Kny
+          </span>
+        </div>
+        {showTagline && (
+          <span
+            className="font-cursive text-sm md:text-[0.95rem] tracking-wide hidden sm:block mt-0.5"
+            style={{ color: taglineColor }}
+          >
+            Der Geheimtipp im Rhein-Main
+          </span>
+        )}
+      </div>
+    </div>
+  )
 }
 
-// Marokkanisches Quatrefoil Symbol (4-Punkt Fliesen-Muster)
-function QuatrefoilSymbol() {
-  return (
-    <g>
-      {/* Äußere Form: 4 geschwungene Blütenblätter */}
-      {/* Oberes Blütenblatt */}
-      <path
-        d="M32 4
-           C38 4, 44 8, 48 14
-           C52 20, 52 28, 48 34
-           C44 28, 38 24, 32 24
-           C26 24, 20 28, 16 34
-           C12 28, 12 20, 16 14
-           C20 8, 26 4, 32 4Z"
-        fill="#C41E3A"
-      />
-
-      {/* Rechtes Blütenblatt */}
-      <path
-        d="M60 32
-           C60 38, 56 44, 50 48
-           C44 52, 36 52, 30 48
-           C36 44, 40 38, 40 32
-           C40 26, 36 20, 30 16
-           C36 12, 44 12, 50 16
-           C56 20, 60 26, 60 32Z"
-        fill="#C41E3A"
-      />
-
-      {/* Unteres Blütenblatt */}
-      <path
-        d="M32 60
-           C26 60, 20 56, 16 50
-           C12 44, 12 36, 16 30
-           C20 36, 26 40, 32 40
-           C38 40, 44 36, 48 30
-           C52 36, 52 44, 48 50
-           C44 56, 38 60, 32 60Z"
-        fill="#C41E3A"
-      />
-
-      {/* Linkes Blütenblatt */}
-      <path
-        d="M4 32
-           C4 26, 8 20, 14 16
-           C20 12, 28 12, 34 16
-           C28 20, 24 26, 24 32
-           C24 38, 28 44, 34 48
-           C28 52, 20 52, 14 48
-           C8 44, 4 38, 4 32Z"
-        fill="#C41E3A"
-      />
-
-      {/* Innere weiße Raute */}
-      <path
-        d="M32 18 L46 32 L32 46 L18 32 Z"
-        fill="#FFFFFF"
-      />
-
-      {/* V-förmiges Element in der Raute */}
-      <path
-        d="M26 26 L32 38 L38 26"
-        fill="none"
-        stroke="#C41E3A"
-        strokeWidth="3"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </g>
-  );
-}
-
-// Export für Icon-Only Verwendung (Favicon, Mobile Nav, etc.)
+// Export für Icon-Only Verwendung (Favicon, etc.)
 export function LogoIcon({ className = '' }: { className?: string }) {
   return (
-    <svg
-      viewBox="0 0 64 64"
-      className={className}
-      aria-label="Fliesen Kny"
-    >
-      <QuatrefoilSymbol />
+    <svg viewBox="0 0 1000 1000" className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path
+        d="M 503.47 950.58 L 478.60 944.22 L 462.40 891.00 L 428.86 847.04 L 388.95 812.92 L 369.28 800.19 L 331.11 790.94 L 276.74 790.94 L 265.75 784.58 L 259.96 703.60 L 209.64 685.67 L 152.38 641.13 L 115.36 592.54 L 94.54 535.86 L 94.54 402.83 L 125.77 331.11 L 177.25 275.00 L 261.12 232.78 L 262.28 167.99 L 268.64 154.69 L 320.69 152.38 L 333.42 141.97 L 388.95 125.77 L 417.29 105.53 L 457.20 49.42 L 534.70 49.42 L 556.11 85.86 L 601.80 126.93 L 675.84 152.38 L 726.74 155.85 L 730.78 231.62 L 744.09 243.77 L 766.07 247.24 L 806.56 269.22 L 858.03 319.54 L 889.27 375.06 L 905.46 424.81 L 904.31 524.29 L 867.29 607.58 L 805.40 670.63 L 761.44 696.08 L 733.10 702.44 L 725.58 787.47 L 658.48 790.94 L 622.62 801.35 L 560.15 848.78 L 503.47 950.58 Z"
+        fill="#CE1A1E"
+      />
+      <path
+        d="M 496.53 896.21 L 453.15 829.69 L 385.48 774.74 L 339.20 762.02 L 291.77 762.02 L 292.35 701.29 L 284.25 686.25 L 269.79 674.10 L 223.52 659.06 L 187.66 633.61 L 143.12 579.82 L 123.46 527.76 L 123.46 412.08 L 151.22 347.30 L 193.44 300.45 L 259.38 270.37 L 285.41 250.13 L 292.35 235.09 L 291.77 181.30 L 328.79 181.30 L 402.83 152.38 L 441.58 122.88 L 475.71 78.34 L 516.20 78.34 L 531.81 103.21 L 587.92 153.53 L 667.74 181.30 L 700.13 181.30 L 706.49 248.97 L 730.21 270.37 L 793.83 296.98 L 832.58 335.73 L 876.54 432.90 L 875.39 515.04 L 840.68 592.54 L 823.33 614.52 L 764.91 660.22 L 725.58 671.79 L 708.80 685.09 L 700.71 700.13 L 700.13 762.02 L 650.39 762.02 L 590.23 784.00 L 531.81 835.48 L 496.53 896.21 Z"
+        fill="#FFFFFF"
+      />
+      <path
+        d="M 497.69 860.35 L 456.04 809.45 L 395.89 762.02 L 340.36 745.82 L 307.97 745.82 L 308.55 700.13 L 295.82 674.68 L 195.76 618.57 L 158.16 572.88 L 139.65 524.29 L 139.65 416.71 L 165.10 356.56 L 202.70 314.33 L 269.79 283.10 L 296.98 261.70 L 308.55 236.25 L 307.97 197.49 L 334.58 196.34 L 413.24 165.10 L 444.47 143.12 L 484.96 94.54 L 505.78 94.54 L 577.51 166.26 L 657.33 195.18 L 683.93 197.49 L 691.45 255.91 L 719.79 283.10 L 782.26 308.55 L 821.02 348.46 L 860.35 434.06 L 859.19 511.57 L 816.39 597.17 L 755.66 646.34 L 722.11 655.59 L 697.24 673.52 L 684.51 698.97 L 683.93 745.82 L 649.23 745.82 L 579.82 771.27 L 520.24 823.91 L 497.69 860.35 Z"
+        fill="#CE1A1E"
+      />
+      <path
+        d="M 312.60 546.85 L 302.76 542.80 L 304.50 522.56 L 461.83 522.56 L 478.60 515.04 L 473.39 501.74 L 430.59 476.29 L 405.14 453.15 L 380.85 441.58 L 321.85 392.99 L 366.97 396.47 L 390.10 417.29 L 415.55 430.01 L 444.47 455.46 L 491.90 485.54 L 502.31 485.54 L 510.41 476.29 L 535.86 463.56 L 626.09 395.31 L 670.63 393.57 L 611.05 441.58 L 585.60 454.31 L 543.96 487.85 L 519.67 500.58 L 514.46 515.04 L 531.23 522.56 L 685.09 522.56 L 689.14 525.45 L 687.98 540.49 L 681.62 545.69 L 312.60 546.85 Z"
+        fill="#FFFFFF"
+      />
+      <path
+        d="M 498.84 380.27 L 494.22 380.27 L 487.85 371.59 L 489.01 366.97 L 495.37 361.76 L 501.16 364.07 L 506.36 370.44 L 498.84 380.27 Z"
+        fill="#FFFFFF"
+      />
     </svg>
-  );
+  )
 }
 
-// Named export für flexible Imports
-export default Logo;
+export default Logo

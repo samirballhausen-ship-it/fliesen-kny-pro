@@ -1,28 +1,27 @@
 import { useState, useEffect, useRef } from 'react'
 import { Link, useLocation } from 'react-router-dom'
-import { Menu, X, Phone, ChevronDown, Calendar } from 'lucide-react'
+import { Menu, X, Phone, ChevronDown, ArrowRight } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Logo } from './Logo'
 
 // Navigation mit Sortiment-Dropdown
 const sortimentItems = [
-  { name: 'Fliesen', href: '/fliesen' },
-  { name: 'Bad & Sanitär', href: '/sanitaer' },
-  { name: 'Naturstein', href: '/naturstein' },
+  { name: 'Fliesen', href: '/sortiment/fliesen' },
+  { name: 'Bad & Sanitär', href: '/sortiment/bad-sanitaer' },
+  { name: 'Naturstein', href: '/sortiment/naturstein' },
 ]
 
 const navigation = [
-  { name: 'Sortiment', href: '#', hasDropdown: true, children: sortimentItems },
+  { name: 'Sortiment', href: '/sortiment', hasDropdown: true, children: sortimentItems },
   { name: 'Ausstellung', href: '/ausstellung' },
   { name: 'Über uns', href: '/ueber-uns' },
-  { name: 'Kontakt', href: '/kontakt' },
 ]
 
 export const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null)
-  const [mobileDropdownOpen, setMobileDropdownOpen] = useState(false)
+  const [mobileDropdownOpen, setMobileDropdownOpen] = useState<string | null>(null)
   const dropdownRef = useRef<HTMLDivElement>(null)
   const location = useLocation()
 
@@ -39,7 +38,7 @@ export const Header = () => {
   useEffect(() => {
     setIsMobileMenuOpen(false)
     setActiveDropdown(null)
-    setMobileDropdownOpen(false)
+    setMobileDropdownOpen(null)
   }, [location])
 
   // Close dropdown when clicking outside
@@ -61,11 +60,10 @@ export const Header = () => {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-        showDarkHeader
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${showDarkHeader
           ? 'bg-white/98 backdrop-blur-md shadow-lg shadow-black/5'
           : 'bg-gradient-to-b from-black/30 to-transparent'
-      }`}
+        }`}
     >
       <div className="container-custom">
         <div className="flex items-center justify-between h-20 lg:h-24">
@@ -115,34 +113,57 @@ export const Header = () => {
                         >
                           <div className="bg-white rounded-lg shadow-2xl shadow-black/10 border border-neutral-100 overflow-hidden min-w-[220px]">
                             <div className="py-2">
-                              {item.children?.map((child, index) => (
+                              {item.children?.map((child) => {
+                                const IconComponent = (child as any).icon
+                                const isExternal = (child as any).isExternal
+
+                                if (isExternal) {
+                                  return (
+                                    <a
+                                      key={child.name}
+                                      href={child.href}
+                                      className="flex items-center gap-3 px-6 py-3.5 text-sm text-neutral-600 hover:text-primary hover:bg-neutral-50 transition-all duration-200"
+                                    >
+                                      {IconComponent && <IconComponent size={16} className="text-primary/60" />}
+                                      <span>{child.name}</span>
+                                    </a>
+                                  )
+                                }
+
+                                return (
+                                  <Link
+                                    key={child.name}
+                                    to={child.href}
+                                    className={`flex items-center gap-3 px-6 py-3.5 text-sm text-neutral-600 hover:text-primary hover:bg-neutral-50 transition-all duration-200 relative group/item
+                                      ${location.pathname === child.href ? 'text-primary bg-primary/5 font-medium' : ''}
+                                    `}
+                                  >
+                                    {IconComponent && <IconComponent size={16} className="text-primary/60" />}
+                                    <span className="relative z-10">{child.name}</span>
+                                    {!(item as any).isContactDropdown && (
+                                      <motion.div
+                                        className="absolute left-0 top-0 bottom-0 w-1 bg-primary"
+                                        initial={{ scaleY: 0 }}
+                                        whileHover={{ scaleY: 1 }}
+                                        transition={{ duration: 0.2 }}
+                                      />
+                                    )}
+                                  </Link>
+                                )
+                              })}
+                            </div>
+                            {/* Dropdown Footer - only for Sortiment */}
+                            {!(item as any).isContactDropdown && (
+                              <div className="border-t border-neutral-100 px-6 py-4 bg-neutral-50/50">
                                 <Link
-                                  key={child.name}
-                                  to={child.href}
-                                  className={`block px-6 py-3.5 text-sm text-neutral-600 hover:text-primary hover:bg-neutral-50 transition-all duration-200 relative group/item
-                                    ${location.pathname === child.href ? 'text-primary bg-primary/5 font-medium' : ''}
-                                  `}
+                                  to="/ausstellung"
+                                  className="text-xs uppercase tracking-wider text-neutral-500 hover:text-primary transition-colors flex items-center gap-2"
                                 >
-                                  <span className="relative z-10">{child.name}</span>
-                                  <motion.div
-                                    className="absolute left-0 top-0 bottom-0 w-1 bg-primary"
-                                    initial={{ scaleY: 0 }}
-                                    whileHover={{ scaleY: 1 }}
-                                    transition={{ duration: 0.2 }}
-                                  />
+                                  <span className="w-4 h-px bg-current" />
+                                  Alle in unserer Ausstellung
                                 </Link>
-                              ))}
-                            </div>
-                            {/* Dropdown Footer */}
-                            <div className="border-t border-neutral-100 px-6 py-4 bg-neutral-50/50">
-                              <Link
-                                to="/ausstellung"
-                                className="text-xs uppercase tracking-wider text-neutral-500 hover:text-primary transition-colors flex items-center gap-2"
-                              >
-                                <span className="w-4 h-px bg-current" />
-                                Alle in unserer Ausstellung
-                              </Link>
-                            </div>
+                              </div>
+                            )}
                           </div>
                         </motion.div>
                       )}
@@ -166,31 +187,29 @@ export const Header = () => {
             ))}
           </nav>
 
-          {/* CTA Button (rechts) */}
+          {/* CTA Button (rechts) - Auffälliger roter Kontakt-Button */}
           <div className="hidden lg:flex items-center gap-4">
             <Link
               to="/kontakt"
-              className={`group flex items-center gap-2.5 text-sm font-medium tracking-wide uppercase px-6 py-3.5 rounded-sm transition-all duration-300 ${
-                showDarkHeader
-                  ? 'bg-primary text-white hover:bg-primary-dark shadow-lg shadow-primary/20 hover:shadow-primary/30'
-                  : 'bg-white text-neutral-800 hover:bg-neutral-100 shadow-lg shadow-black/10'
-              }`}
+              className="group flex items-center gap-3 text-sm font-bold tracking-wide uppercase
+                         px-7 py-4 bg-brand-red hover:bg-brand-red-dark text-white
+                         shadow-lg shadow-brand-red/30 hover:shadow-brand-red/40
+                         transition-all duration-300 hover:scale-[1.02]"
             >
-              <Calendar size={16} className="transition-transform duration-300 group-hover:scale-110" />
-              Termin vereinbaren
+              <span>Kontakt</span>
+              <ArrowRight size={18} className="transition-transform duration-300 group-hover:translate-x-1" />
             </Link>
           </div>
 
           {/* Mobile Menu Button */}
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className={`lg:hidden relative z-50 p-2.5 rounded-lg transition-all duration-300 ${
-              isMobileMenuOpen
+            className={`lg:hidden relative z-50 p-2.5 rounded-lg transition-all duration-300 ${isMobileMenuOpen
                 ? 'text-neutral-800 bg-neutral-100'
                 : showDarkHeader
                   ? 'text-neutral-800 hover:bg-neutral-100'
                   : 'text-white hover:bg-white/10'
-            }`}
+              }`}
             aria-label={isMobileMenuOpen ? 'Menü schließen' : 'Menü öffnen'}
           >
             <AnimatePresence mode="wait">
@@ -255,20 +274,22 @@ export const Header = () => {
                       {item.hasDropdown ? (
                         <div className="border-b border-neutral-100">
                           <button
-                            onClick={() => setMobileDropdownOpen(!mobileDropdownOpen)}
+                            onClick={() => setMobileDropdownOpen(mobileDropdownOpen === item.name ? null : item.name)}
                             className={`w-full flex items-center justify-between py-4 text-lg font-medium transition-colors ${
-                              isSortimentActive ? 'text-primary' : 'text-neutral-800'
-                            }`}
+                              (item.name === 'Sortiment' && isSortimentActive) || location.pathname === item.href
+                                ? 'text-primary'
+                                : 'text-neutral-800'
+                              }`}
                           >
                             {item.name}
                             <ChevronDown
                               size={20}
-                              className={`transition-transform duration-300 ${mobileDropdownOpen ? 'rotate-180' : ''}`}
+                              className={`transition-transform duration-300 ${mobileDropdownOpen === item.name ? 'rotate-180' : ''}`}
                             />
                           </button>
 
                           <AnimatePresence>
-                            {mobileDropdownOpen && (
+                            {mobileDropdownOpen === item.name && (
                               <motion.div
                                 initial={{ height: 0, opacity: 0 }}
                                 animate={{ height: 'auto', opacity: 1 }}
@@ -281,11 +302,10 @@ export const Header = () => {
                                     <Link
                                       key={child.name}
                                       to={child.href}
-                                      className={`block py-3 px-4 text-base rounded-lg transition-all ${
-                                        location.pathname === child.href
+                                      className={`block py-3 px-4 text-base rounded-lg transition-all ${location.pathname === child.href
                                           ? 'text-primary bg-primary/5 font-medium'
                                           : 'text-neutral-600 hover:text-neutral-900 hover:bg-neutral-50'
-                                      }`}
+                                        }`}
                                     >
                                       {child.name}
                                     </Link>
@@ -298,11 +318,10 @@ export const Header = () => {
                       ) : (
                         <Link
                           to={item.href}
-                          className={`block py-4 text-lg font-medium border-b border-neutral-100 transition-colors ${
-                            location.pathname === item.href
+                          className={`block py-4 text-lg font-medium border-b border-neutral-100 transition-colors ${location.pathname === item.href
                               ? 'text-primary'
                               : 'text-neutral-800 hover:text-primary'
-                          }`}
+                            }`}
                         >
                           {item.name}
                         </Link>
@@ -311,7 +330,7 @@ export const Header = () => {
                   ))}
                 </nav>
 
-                {/* Mobile Footer with Contact & CTA */}
+                {/* Mobile Footer with Contact CTA */}
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -330,10 +349,13 @@ export const Header = () => {
 
                   <Link
                     to="/kontakt"
-                    className="flex items-center justify-center gap-2.5 w-full py-4 bg-primary text-white text-base font-medium rounded-lg hover:bg-primary-dark transition-all shadow-lg shadow-primary/20"
+                    className="flex items-center justify-center gap-3 w-full py-4
+                               bg-brand-red text-white text-base font-bold
+                               hover:bg-brand-red-dark transition-all
+                               shadow-lg shadow-brand-red/30"
                   >
-                    <Calendar size={18} />
-                    Termin vereinbaren
+                    <span>Kontakt</span>
+                    <ArrowRight size={18} />
                   </Link>
 
                   {/* Opening Hours Hint */}

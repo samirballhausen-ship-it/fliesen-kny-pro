@@ -64,7 +64,7 @@ export const Kontakt = () => {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.1 }}
-              className="font-display text-4xl md:text-5xl lg:text-6xl text-white mb-4"
+              className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-white mb-4"
             >
               Wir freuen uns auf Sie
             </motion.h1>
@@ -83,7 +83,7 @@ export const Kontakt = () => {
       {/* Kontakt Section - 2 Spalten */}
       <section className="section-padding bg-white">
         <div className="container-custom">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-10 lg:gap-12 xl:gap-16">
             {/* Linke Spalte - Kontaktinformationen */}
             <motion.div
               initial={{ opacity: 0, x: -30 }}
@@ -351,7 +351,7 @@ export const Kontakt = () => {
       </section>
 
       {/* Anfahrt-Hinweise */}
-      <section className="py-16 bg-neutral-cream">
+      <section className="py-12 sm:py-14 md:py-16 bg-neutral-cream">
         <div className="container-custom">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
