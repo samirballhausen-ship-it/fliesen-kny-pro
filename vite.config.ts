@@ -1,8 +1,15 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
+import legacy from '@vitejs/plugin-legacy'
 
 export default defineConfig({
-  plugins: [react()],
+  plugins: [
+    react(),
+    legacy({
+      targets: ['safari >= 14', 'ios >= 14', 'chrome >= 87'],
+      modernPolyfills: true,
+    }),
+  ],
   // For GitHub Pages deployment - set base to repo name
   // Comment out for local dev or Vercel
   // base: '/fliesen-kny-pro/',

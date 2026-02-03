@@ -1,39 +1,42 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 
-const CustomCursor: React.FC = () => {
+const CustomCursor = () => {
+  const [isDesktop, setIsDesktop] = useState(false)
   const [position, setPosition] = useState({ x: -100, y: -100 })
   const [isHovering, setIsHovering] = useState(false)
   const [isVisible, setIsVisible] = useState(false)
-  const [isTouchDevice, setIsTouchDevice] = useState(true)
 
+  // Check if desktop AFTER mount (SSR-safe)
   useEffect(() => {
-    // Check if touch device
-    const checkTouch = () => {
-      setIsTouchDevice(
+    const checkDesktop = () => {
+      const isTouchDevice =
         'ontouchstart' in window ||
         navigator.maxTouchPoints > 0 ||
         window.innerWidth < 1024
-      )
+      setIsDesktop(!isTouchDevice)
     }
 
-    checkTouch()
-    window.addEventListener('resize', checkTouch)
+    checkDesktop()
+    window.addEventListener('resize', checkDesktop)
+    return () => window.removeEventListener('resize', checkDesktop)
+  }, [])
 
-    if (isTouchDevice) return
+  // Only add mouse listeners on desktop
+  useEffect(() => {
+    if (!isDesktop) return
 
     const onMouseMove = (e: MouseEvent) => {
       setPosition({ x: e.clientX, y: e.clientY })
 
       const target = e.target as HTMLElement
+      // Removed getComputedStyle - too expensive and causes Safari issues
       const isClickable =
         target.tagName === 'A' ||
         target.tagName === 'BUTTON' ||
         !!target.closest('a') ||
-        !!target.closest('button') ||
-        getComputedStyle(target).cursor === 'pointer'
-
-      setIsHovering(!!isClickable)
+        !!target.closest('button')
+      setIsHovering(isClickable)
     }
 
     const onMouseEnter = () => setIsVisible(true)
@@ -47,15 +50,15 @@ const CustomCursor: React.FC = () => {
       document.removeEventListener('mousemove', onMouseMove)
       document.removeEventListener('mouseenter', onMouseEnter)
       document.removeEventListener('mouseleave', onMouseLeave)
-      window.removeEventListener('resize', checkTouch)
     }
-  }, [isTouchDevice])
+  }, [isDesktop])
 
-  if (isTouchDevice) return null
+  // Render NOTHING on mobile/touch devices
+  if (!isDesktop) return null
 
   return (
     <motion.div
-      className="fixed pointer-events-none z-[9999] mix-blend-difference"
+      className="fixed pointer-events-none z-[9999]"
       animate={{
         x: position.x - (isHovering ? 20 : 6),
         y: position.y - (isHovering ? 20 : 6),

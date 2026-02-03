@@ -28,30 +28,18 @@ const Navbar: React.FC = () => {
     setMobileMenuOpen(false)
   }, [location])
 
-  // Prevent body scroll when mobile menu is open - iOS Safari compatible
+  // Prevent body scroll when mobile menu is open - simplified for iOS Safari
   useEffect(() => {
     if (mobileMenuOpen) {
-      // iOS Safari requires both overflow and position fixed to prevent scroll
+      document.documentElement.style.overflow = 'hidden'
       document.body.style.overflow = 'hidden'
-      document.body.style.position = 'fixed'
-      document.body.style.width = '100%'
-      document.body.style.top = `-${window.scrollY}px`
     } else {
-      const scrollY = document.body.style.top
+      document.documentElement.style.overflow = ''
       document.body.style.overflow = ''
-      document.body.style.position = ''
-      document.body.style.width = ''
-      document.body.style.top = ''
-      // Restore scroll position
-      if (scrollY) {
-        window.scrollTo(0, parseInt(scrollY || '0') * -1)
-      }
     }
     return () => {
+      document.documentElement.style.overflow = ''
       document.body.style.overflow = ''
-      document.body.style.position = ''
-      document.body.style.width = ''
-      document.body.style.top = ''
     }
   }, [mobileMenuOpen])
 

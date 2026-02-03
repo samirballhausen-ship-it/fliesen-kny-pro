@@ -38,17 +38,15 @@ export const textRevealContainer: Variants = {
   },
 };
 
-// Text reveal - single word
+// Text reveal - single word (removed rotateX for Safari compatibility)
 export const textRevealWord: Variants = {
   hidden: {
     opacity: 0,
     y: 50,
-    rotateX: -90,
   },
   visible: {
     opacity: 1,
     y: 0,
-    rotateX: 0,
     transition: {
       duration: 0.8,
       ease: easings.smooth,
