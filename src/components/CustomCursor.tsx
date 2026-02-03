@@ -29,11 +29,11 @@ const CustomCursor: React.FC = () => {
       const isClickable =
         target.tagName === 'A' ||
         target.tagName === 'BUTTON' ||
-        target.closest('a') ||
-        target.closest('button') ||
+        !!target.closest('a') ||
+        !!target.closest('button') ||
         getComputedStyle(target).cursor === 'pointer'
 
-      setIsHovering(isClickable)
+      setIsHovering(!!isClickable)
     }
 
     const onMouseEnter = () => setIsVisible(true)

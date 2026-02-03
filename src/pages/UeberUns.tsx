@@ -334,7 +334,7 @@ export const UeberUns = () => {
         <div className="absolute top-1/2 right-0 w-[500px] h-[500px] bg-gold-500/3 blur-[200px] rounded-full pointer-events-none -translate-y-1/2" />
 
         <div className="container mx-auto px-6 md:px-12 relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 sm:gap-12 lg:gap-16 xl:gap-24 items-center"
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 sm:gap-12 lg:gap-16 xl:gap-24 items-center">
 
             {/* Kreatives rundes Foto - Links */}
             <motion.div
