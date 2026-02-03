@@ -15,6 +15,8 @@ export default defineConfig({
     outDir: 'dist',
     sourcemap: false,
     minify: 'esbuild',
+    // Target older browsers including iOS Safari 14+
+    target: ['es2020', 'safari14', 'chrome87', 'firefox78'],
     rollupOptions: {
       output: {
         manualChunks: {
