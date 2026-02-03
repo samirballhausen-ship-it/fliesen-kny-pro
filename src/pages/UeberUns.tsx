@@ -416,14 +416,15 @@ export const UeberUns = () => {
 
               <div className="space-y-5 text-cream-400 leading-relaxed mb-10">
                 <p>
-                  Als Fliesenlegermeister in zweiter Generation verbinde ich
-                  die handwerkliche Tradition meiner Familie mit innovativen
-                  Designkonzepten und modernen Verlegetechniken.
+                  In zweiter Generation führe ich das Familienunternehmen fort,
+                  das mein Vater 1980 gegründet hat. Mit Leidenschaft und
+                  dem Wissen aus über 40 Jahren Firmengeschichte berate ich
+                  unsere Kunden persönlich.
                 </p>
                 <p>
-                  Mein Ziel ist es, jedem Kunden nicht nur hochwertige Fliesen,
-                  sondern ein Gesamtkonzept zu bieten, das seine Räume in
-                  einzigartige Wohlfühloasen verwandelt.
+                  Mein Anspruch: Jedem Kunden nicht nur hochwertige Fliesen,
+                  sondern ein durchdachtes Gesamtkonzept zu bieten, das seine
+                  Räume in einzigartige Wohlfühloasen verwandelt.
                 </p>
               </div>
 
@@ -431,7 +432,7 @@ export const UeberUns = () => {
               <div className="flex flex-wrap gap-6 mb-10">
                 <div className="flex items-center gap-2">
                   <div className="w-2 h-2 bg-gold-500 rounded-full" />
-                  <span className="text-cream-300 text-sm">Fliesenlegermeister</span>
+                  <span className="text-cream-300 text-sm">Geschäftsführer</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <div className="w-2 h-2 bg-gold-500 rounded-full" />
