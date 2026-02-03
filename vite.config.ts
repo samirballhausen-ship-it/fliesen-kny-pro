@@ -3,6 +3,9 @@ import react from '@vitejs/plugin-react'
 
 export default defineConfig({
   plugins: [react()],
+  // For GitHub Pages deployment - set base to repo name
+  // Comment out for local dev or Vercel
+  // base: '/fliesen-kny-pro/',
   resolve: {
     alias: {
       '@': '/src',
