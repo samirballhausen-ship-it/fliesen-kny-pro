@@ -62,15 +62,22 @@ export const Header = () => {
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${showDarkHeader
           ? 'bg-white/98 backdrop-blur-md shadow-lg shadow-black/5'
-          : 'bg-gradient-to-b from-black/30 to-transparent'
+          : 'bg-white/98 backdrop-blur-md shadow-lg shadow-black/5 lg:bg-gradient-to-b lg:from-black/30 lg:to-transparent lg:shadow-none lg:backdrop-blur-none'
         }`}
     >
       <div className="container-custom">
         <div className="flex items-center justify-between h-20 lg:h-24">
-          {/* Logo */}
+          {/* Logo - Mobile always dark, Desktop depends on scroll/page */}
           <Link to="/" className="relative z-10 group">
+            {/* Mobile: always dark logo */}
             <Logo
-              className="h-12 lg:h-14 w-auto transition-transform duration-300 group-hover:scale-105"
+              className="lg:hidden h-12 w-auto transition-transform duration-300 group-hover:scale-105"
+              variant="dark"
+              showTagline={false}
+            />
+            {/* Desktop: light on homepage when not scrolled, otherwise dark */}
+            <Logo
+              className="hidden lg:block h-14 w-auto transition-transform duration-300 group-hover:scale-105"
               variant={showDarkHeader ? 'dark' : 'light'}
               showTagline={false}
             />
@@ -201,14 +208,12 @@ export const Header = () => {
             </Link>
           </div>
 
-          {/* Mobile Menu Button */}
+          {/* Mobile Menu Button - always dark on mobile since header has white bg */}
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             className={`lg:hidden relative z-50 p-2.5 rounded-lg transition-all duration-300 ${isMobileMenuOpen
                 ? 'text-neutral-800 bg-neutral-100'
-                : showDarkHeader
-                  ? 'text-neutral-800 hover:bg-neutral-100'
-                  : 'text-white hover:bg-white/10'
+                : 'text-neutral-800 hover:bg-neutral-100'
               }`}
             aria-label={isMobileMenuOpen ? 'Menü schließen' : 'Menü öffnen'}
           >
