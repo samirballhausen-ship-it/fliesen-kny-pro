@@ -26,7 +26,9 @@ const Hero: React.FC<HeroProps> = ({ animationsReady = true }) => {
   const headlineWords = splitTextIntoWords('Raum für Charakter.')
 
   return (
-    <section className="relative h-screen w-full overflow-hidden bg-luxury-charcoal">
+    // Using min-h-[100dvh] for iOS Safari compatibility (dvh = dynamic viewport height)
+    // Falls back to 100vh on browsers that don't support dvh
+    <section className="relative min-h-screen min-h-[100dvh] w-full overflow-hidden bg-luxury-charcoal">
       {/* Background Layer with Parallax */}
       <motion.div
         style={{ y: bgY }}

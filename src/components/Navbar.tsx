@@ -28,15 +28,30 @@ const Navbar: React.FC = () => {
     setMobileMenuOpen(false)
   }, [location])
 
-  // Prevent body scroll when mobile menu is open
+  // Prevent body scroll when mobile menu is open - iOS Safari compatible
   useEffect(() => {
     if (mobileMenuOpen) {
+      // iOS Safari requires both overflow and position fixed to prevent scroll
       document.body.style.overflow = 'hidden'
+      document.body.style.position = 'fixed'
+      document.body.style.width = '100%'
+      document.body.style.top = `-${window.scrollY}px`
     } else {
+      const scrollY = document.body.style.top
       document.body.style.overflow = ''
+      document.body.style.position = ''
+      document.body.style.width = ''
+      document.body.style.top = ''
+      // Restore scroll position
+      if (scrollY) {
+        window.scrollTo(0, parseInt(scrollY || '0') * -1)
+      }
     }
     return () => {
       document.body.style.overflow = ''
+      document.body.style.position = ''
+      document.body.style.width = ''
+      document.body.style.top = ''
     }
   }, [mobileMenuOpen])
 
@@ -166,14 +181,14 @@ const Navbar: React.FC = () => {
               onClick={() => setMobileMenuOpen(false)}
             />
 
-            {/* Menu content */}
+            {/* Menu content - using dvh for iOS Safari compatibility */}
             <motion.div
               variants={mobileMenuContent}
               initial="closed"
               animate="open"
               exit="closed"
-              className="fixed top-0 right-0 h-full w-full max-w-[85vw] sm:max-w-sm md:max-w-md bg-luxury-charcoal z-40
-                         flex flex-col border-l border-luxury-smoke/30"
+              className="fixed top-0 right-0 h-full h-[100dvh] w-full max-w-[85vw] sm:max-w-sm md:max-w-md bg-luxury-charcoal z-40
+                         flex flex-col border-l border-luxury-smoke/30 overflow-y-auto"
             >
               {/* Close button area padding for navbar */}
               <div className="h-20" />

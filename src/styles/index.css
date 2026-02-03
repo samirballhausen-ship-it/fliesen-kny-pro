@@ -54,18 +54,24 @@
     scroll-behavior: smooth;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    /* iOS Safari touch scrolling fix */
+    -webkit-overflow-scrolling: touch;
   }
 
   body {
     @apply font-body text-neutral-text bg-neutral-cream;
     font-feature-settings: 'cv11', 'ss01', 'cv01';
     text-rendering: optimizeLegibility;
+    /* Prevent iOS Safari text size adjustment */
+    -webkit-text-size-adjust: 100%;
   }
 
   /* Premium Headline Styling */
   h1, h2, h3, h4, h5, h6 {
     @apply font-display font-semibold text-neutral-text;
+    /* text-wrap: balance - fallback for older browsers */
     text-wrap: balance;
+    -webkit-text-wrap: balance;
   }
 
   h1 {

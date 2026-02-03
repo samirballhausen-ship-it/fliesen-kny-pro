@@ -54,7 +54,7 @@ const CategorySection = ({
   return (
     <section
       ref={sectionRef}
-      className="relative h-screen w-full snap-start snap-always overflow-hidden"
+      className="relative min-h-screen min-h-[100dvh] h-screen h-[100dvh] w-full snap-start snap-always overflow-hidden"
     >
       {/* Fullscreen Background Image with Parallax */}
       <motion.div
@@ -214,7 +214,7 @@ export const SortimentPage = () => {
   return (
     <div
       ref={containerRef}
-      className="bg-luxury-charcoal snap-y snap-mandatory h-screen overflow-y-auto"
+      className="bg-luxury-charcoal snap-y snap-mandatory h-screen h-[100dvh] overflow-y-auto"
       style={{ scrollBehavior: 'smooth' }}
     >
       {/* Fixed Progress Indicator */}
@@ -256,7 +256,7 @@ export const SortimentPage = () => {
       <motion.section
         ref={heroRef}
         style={{ opacity: heroOpacity, scale: heroScale }}
-        className="relative h-screen w-full snap-start snap-always flex items-center justify-center overflow-hidden"
+        className="relative h-screen h-[100dvh] w-full snap-start snap-always flex items-center justify-center overflow-hidden"
       >
         {/* Subtle background */}
         <div className="absolute inset-0 bg-gradient-to-b from-luxury-anthracite to-luxury-charcoal" />
@@ -323,7 +323,7 @@ export const SortimentPage = () => {
       ))}
 
       {/* Footer CTA Section */}
-      <section className="relative h-screen w-full snap-start snap-always flex items-center justify-center bg-luxury-charcoal">
+      <section className="relative h-screen h-[100dvh] w-full snap-start snap-always flex items-center justify-center bg-luxury-charcoal">
         <div className="absolute inset-0 bg-gradient-to-b from-luxury-charcoal via-luxury-anthracite to-luxury-charcoal" />
 
         <motion.div
