@@ -1,5 +1,5 @@
 import React from 'react'
-import { motion, useScroll, useTransform } from 'framer-motion'
+import { motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import Button from './ui/Button'
 import {
@@ -14,13 +14,7 @@ interface HeroProps {
 }
 
 const Hero: React.FC<HeroProps> = ({ animationsReady = true }) => {
-  const { scrollY } = useScroll()
-
-  // Multi-layer parallax
-  const bgY = useTransform(scrollY, [0, 1000], [0, 400])
-  const midY = useTransform(scrollY, [0, 1000], [0, 200])
-  const contentOpacity = useTransform(scrollY, [0, 500], [1, 0])
-  const contentY = useTransform(scrollY, [0, 500], [0, 100])
+  // Removed useScroll/useTransform - causes Safari crashes in WebView
 
   // Split headline for word animation
   const headlineWords = splitTextIntoWords('Raum für Charakter.')
@@ -29,16 +23,13 @@ const Hero: React.FC<HeroProps> = ({ animationsReady = true }) => {
     // Using min-h-[100dvh] for iOS Safari compatibility (dvh = dynamic viewport height)
     // Falls back to 100vh on browsers that don't support dvh
     <section className="relative min-h-screen min-h-[100dvh] w-full overflow-hidden bg-luxury-charcoal">
-      {/* Background Layer with Parallax */}
-      <motion.div
-        style={{ y: bgY }}
-        className="absolute inset-0 z-0"
-      >
-        {/* Cinematic Image - only animate when ready */}
+      {/* Background Layer - static (removed parallax for Safari compatibility) */}
+      <div className="absolute inset-0 z-0">
+        {/* Cinematic Image - simplified animation (removed blur for Safari) */}
         <motion.img
-          initial={{ scale: 1.3, opacity: 0, filter: 'blur(20px)' }}
-          animate={animationsReady ? { scale: 1, opacity: 1, filter: 'blur(0px)' } : { scale: 1.3, opacity: 0, filter: 'blur(20px)' }}
-          transition={{ duration: 1.8, ease: easings.cinematic }}
+          initial={{ scale: 1.1, opacity: 0 }}
+          animate={animationsReady ? { scale: 1, opacity: 1 } : { scale: 1.1, opacity: 0 }}
+          transition={{ duration: 1.5, ease: easings.cinematic }}
           src="/images/hero/hero-homepage.png"
           alt="Premium Badezimmer mit eleganten Fliesen"
           className="w-full h-full object-cover"
@@ -62,11 +53,10 @@ const Hero: React.FC<HeroProps> = ({ animationsReady = true }) => {
             background: 'radial-gradient(ellipse at center, transparent 0%, rgba(13, 13, 13, 0.4) 70%, rgba(13, 13, 13, 0.8) 100%)',
           }}
         />
-      </motion.div>
+      </div>
 
-      {/* Gold Glow Accents - animate in */}
+      {/* Gold Glow Accents - animate in (removed parallax) */}
       <motion.div
-        style={{ y: midY }}
         initial={{ opacity: 0, scale: 0.8 }}
         animate={animationsReady ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
         transition={{ duration: 1.5, delay: 0.8 }}
@@ -81,10 +71,7 @@ const Hero: React.FC<HeroProps> = ({ animationsReady = true }) => {
 
       {/* Editorial Layout Content */}
       <div className="relative z-30 container mx-auto px-6 md:px-12 h-full flex flex-col justify-center pt-28 sm:pt-32 md:pt-0">
-        <motion.div
-          style={{ opacity: contentOpacity, y: contentY }}
-          className="max-w-4xl"
-        >
+        <div className="max-w-4xl">
           {/* Decorative Line with Gold Gradient */}
           <motion.div
             initial={{ width: 0, opacity: 0 }}
@@ -122,8 +109,8 @@ const Hero: React.FC<HeroProps> = ({ animationsReady = true }) => {
           {/* Subtext Grid */}
           <div className="grid md:grid-cols-2 gap-6 sm:gap-8 md:gap-12 mt-8 sm:mt-10 md:mt-12 items-end">
             <motion.p
-              initial={{ opacity: 0, y: 30, filter: 'blur(10px)' }}
-              animate={animationsReady ? { opacity: 1, y: 0, filter: 'blur(0px)' } : { opacity: 0, y: 30, filter: 'blur(10px)' }}
+              initial={{ opacity: 0, y: 20 }}
+              animate={animationsReady ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
               transition={{ duration: 0.8, delay: 1.2, ease: easings.smooth }}
               className="text-cream-300 text-lg font-light leading-relaxed border-l border-gold-500/30 pl-6"
             >
@@ -145,7 +132,7 @@ const Hero: React.FC<HeroProps> = ({ animationsReady = true }) => {
               </Link>
             </motion.div>
           </div>
-        </motion.div>
+        </div>
       </div>
 
       {/* Floating Badge with Gold Glow */}

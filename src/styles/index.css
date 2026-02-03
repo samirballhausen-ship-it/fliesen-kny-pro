@@ -69,9 +69,7 @@
   /* Premium Headline Styling */
   h1, h2, h3, h4, h5, h6 {
     @apply font-display font-semibold text-neutral-text;
-    /* text-wrap: balance - fallback for older browsers */
-    text-wrap: balance;
-    -webkit-text-wrap: balance;
+    /* Removed text-wrap: balance - not supported in iOS Safari 14-15 */
   }
 
   h1 {
@@ -365,13 +363,15 @@
     @apply bg-gradient-to-r from-primary via-primary-light to-primary bg-clip-text text-transparent;
   }
 
-  /* Text Balance */
-  .text-balance {
-    text-wrap: balance;
-  }
+  /* Text Balance - wrapped in @supports for Safari compatibility */
+  @supports (text-wrap: pretty) {
+    .text-balance {
+      text-wrap: pretty;
+    }
 
-  .text-pretty {
-    text-wrap: pretty;
+    .text-pretty {
+      text-wrap: pretty;
+    }
   }
 
   /* ========== GLASS EFFECTS ========== */
