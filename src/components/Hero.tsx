@@ -23,8 +23,11 @@ const Hero: React.FC<HeroProps> = ({ animationsReady = true }) => {
     // Using min-h-[100dvh] for iOS Safari compatibility (dvh = dynamic viewport height)
     // Falls back to 100vh on browsers that don't support dvh
     <section className="relative min-h-screen min-h-[100dvh] w-full overflow-hidden bg-luxury-charcoal">
+      {/* Mobile Header Spacer - pushes content below fixed navbar */}
+      <div className="h-24 md:h-0 bg-luxury-charcoal relative z-40" />
+
       {/* Background Layer - static (removed parallax for Safari compatibility) */}
-      <div className="absolute inset-0 z-0">
+      <div className="absolute inset-0 top-24 md:top-0 z-0">
         {/* Cinematic Image - simplified animation (removed blur for Safari) */}
         <motion.img
           initial={{ scale: 1.1, opacity: 0 }}
@@ -70,7 +73,7 @@ const Hero: React.FC<HeroProps> = ({ animationsReady = true }) => {
       />
 
       {/* Editorial Layout Content */}
-      <div className="relative z-30 container mx-auto px-6 md:px-12 min-h-screen min-h-[100dvh] flex flex-col justify-start pt-32 sm:pt-36 md:justify-center md:pt-0">
+      <div className="relative z-30 container mx-auto px-6 md:px-12 min-h-[calc(100dvh-6rem)] md:min-h-screen flex flex-col justify-start pt-8 sm:pt-12 md:justify-center md:pt-0">
         <div className="max-w-4xl">
           {/* Decorative Line with Gold Gradient */}
           <motion.div
