@@ -70,7 +70,7 @@ const Hero: React.FC<HeroProps> = ({ animationsReady = true }) => {
       />
 
       {/* Editorial Layout Content */}
-      <div className="relative z-30 container mx-auto px-6 md:px-12 h-full flex flex-col justify-center pt-28 sm:pt-32 md:pt-0">
+      <div className="relative z-30 container mx-auto px-6 md:px-12 min-h-screen min-h-[100dvh] flex flex-col justify-start pt-32 sm:pt-36 md:justify-center md:pt-0">
         <div className="max-w-4xl">
           {/* Decorative Line with Gold Gradient */}
           <motion.div
