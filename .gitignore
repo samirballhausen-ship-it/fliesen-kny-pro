@@ -31,3 +31,9 @@ dist-ssr
 .env.production.local
 .vercel
 .env*.local
+
+# Firebase
+.firebase/
+
+# Build artifacts
+tsconfig.tsbuildinfo

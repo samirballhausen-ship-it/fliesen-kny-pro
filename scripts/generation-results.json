@@ -1,0 +1,53 @@
+{
+  "success": [
+    "hero/hero-homepage.png",
+    "hero/hero-ausstellung.png",
+    "hero/hero-ueber-uns.png",
+    "intro/intro-textur.png",
+    "intro/intro-showroom.png",
+    "showroom/geschichte.png",
+    "showroom/beratung.png",
+    "kategorien/kategorie-grossformat.png",
+    "kategorien/kategorie-bad.png",
+    "kategorien/kategorie-naturstein.png",
+    "kategorien/sortiment-fliesen.png",
+    "kategorien/sortiment-sanitaer.png",
+    "kategorien/sortiment-naturstein.png",
+    "services/service-beratung.png",
+    "services/service-3d-planung.png",
+    "news/news-fruehjahr.png",
+    "news/news-service.png",
+    "news/news-jubilaeum.png",
+    "news/news-naturstein.png",
+    "news/news-3d.png",
+    "projekte/projekt-penthouse.png",
+    "projekte/projekt-villa.png",
+    "projekte/projekt-mainz.png",
+    "projekte/projekt-loft.png",
+    "projekte/projekt-spa.png",
+    "projekte/projekt-altbau.png",
+    "showroom/showroom-interior.png",
+    "galerie/galerie-01.png",
+    "galerie/galerie-02.png",
+    "galerie/galerie-03.png",
+    "galerie/galerie-04.png",
+    "galerie/galerie-05.png",
+    "galerie/galerie-06.png",
+    "galerie/galerie-07.png",
+    "galerie/galerie-08.png",
+    "highlights/highlight-fliesen.png",
+    "highlights/highlight-sanitaer.png",
+    "highlights/highlight-naturstein.png",
+    "highlights/highlight-musterbaeder.png"
+  ],
+  "failed": [
+    {
+      "filename": "services/service-handwerker.png",
+      "error": "No image data"
+    },
+    {
+      "filename": "news/news-handwerker.png",
+      "error": "No image data"
+    }
+  ]
+}
