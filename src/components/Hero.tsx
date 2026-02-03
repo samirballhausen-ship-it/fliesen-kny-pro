@@ -80,7 +80,7 @@ const Hero: React.FC<HeroProps> = ({ animationsReady = true }) => {
       />
 
       {/* Editorial Layout Content */}
-      <div className="relative z-30 container mx-auto px-6 md:px-12 h-full flex flex-col justify-center">
+      <div className="relative z-30 container mx-auto px-6 md:px-12 h-full flex flex-col justify-center pt-28 sm:pt-32 md:pt-0">
         <motion.div
           style={{ opacity: contentOpacity, y: contentY }}
           className="max-w-4xl"
