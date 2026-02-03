@@ -1,18 +1,11 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
-import legacy from '@vitejs/plugin-legacy'
 
+// REMOVED legacy plugin - it was causing slow loading on iOS Safari
 export default defineConfig({
   plugins: [
     react(),
-    legacy({
-      targets: ['safari >= 14', 'ios >= 14', 'chrome >= 87'],
-      modernPolyfills: true,
-    }),
   ],
-  // For GitHub Pages deployment - set base to repo name
-  // Comment out for local dev or Vercel
-  // base: '/fliesen-kny-pro/',
   resolve: {
     alias: {
       '@': '/src',
@@ -22,8 +15,8 @@ export default defineConfig({
     outDir: 'dist',
     sourcemap: false,
     minify: 'esbuild',
-    // Target older browsers including iOS Safari 14+
-    target: ['es2020', 'safari14', 'chrome87', 'firefox78'],
+    // Safari 15+ target (iOS 15 is from 2021, should cover most users)
+    target: ['es2020', 'safari15', 'chrome90'],
     rollupOptions: {
       output: {
         manualChunks: {

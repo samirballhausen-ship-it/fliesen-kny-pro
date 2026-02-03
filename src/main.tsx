@@ -5,8 +5,7 @@ import App from './App'
 import { ErrorBoundary } from './components/ErrorBoundary'
 import './styles/index.css'
 
-// Using HashRouter instead of BrowserRouter for better In-App Browser compatibility
-// (WhatsApp, Facebook, Instagram WebViews have limited History API support)
+// Using HashRouter for WhatsApp/Facebook In-App Browser compatibility
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <ErrorBoundary>
